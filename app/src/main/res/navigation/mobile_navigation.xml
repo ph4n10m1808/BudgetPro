@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.ph4n10m.budgetpro.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_spend"
+        android:name="com.ph4n10m.budgetpro.ui.spend.SpendFragment"
+        android:label="fragment_spend"
+        tools:layout="@layout/fragment_spend" />
+    <fragment
+        android:id="@+id/nav_collect"
+        android:name="com.ph4n10m.budgetpro.ui.collect.CollectFragment"
+        android:label="fragment_collect"
+        tools:layout="@layout/fragment_collect" />
+    <fragment
+        android:id="@+id/nav_intro"
+        android:name="com.ph4n10m.budgetpro.ui.intro.IntroFragment"
+        android:label="fragment_intro"
+        tools:layout="@layout/fragment_intro" />
+    <fragment
+        android:id="@+id/nav_statistics"
+        android:name="com.ph4n10m.budgetpro.ui.statistics.StatisticsFragment"
+        android:label="fragment_statistics"
+        tools:layout="@layout/fragment_statistics" />
+    <fragment
+        android:id="@+id/nav_exit"
+        android:name="com.ph4n10m.budgetpro.ui.home.HomeFragment"
+        tools:layout="@layout/fragment_home" />
+</navigation>
