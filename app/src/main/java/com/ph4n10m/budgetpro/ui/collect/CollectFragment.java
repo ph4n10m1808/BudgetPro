@@ -17,11 +17,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.ph4n10m.budgetpro.R;
 import com.ph4n10m.budgetpro.adapter.CollectViewPager2Adapter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CollectFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class CollectFragment extends Fragment {
     private ViewPager2 mVp;
     public TabLayout mT1;
