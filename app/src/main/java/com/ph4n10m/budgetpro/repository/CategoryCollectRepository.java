@@ -24,7 +24,7 @@ public class CategoryCollectRepository {
         return mAllCategoryCollect;
     }
     public void insert(CategoryCollect categoryCollect){
-        new InsertAsyncTask(mCategoryCollectDao).execute();
+        new InsertAsyncTask(mCategoryCollectDao).execute(categoryCollect);
     }
     class InsertAsyncTask extends AsyncTask<CategoryCollect, Void, Void>{
         private CategoryCollectDao mCategoryCollectDao;

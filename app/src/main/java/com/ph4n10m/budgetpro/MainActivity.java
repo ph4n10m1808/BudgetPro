@@ -9,6 +9,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -18,6 +19,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ph4n10m.budgetpro.databinding.ActivityMainBinding;
+import com.ph4n10m.budgetpro.dialog.CategoryCollectDialog;
+import com.ph4n10m.budgetpro.ui.collect.CategoryCollectFragment;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,18 +37,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
+        final MainActivity currentContext=this;
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null)
-                        .setAnchorView(R.id.fab).show();
+                List<Fragment> fragments = getSupportFragmentManager().getFragments();
+                Fragment fragment = fragments.get(fragments.size()-1);
+                if(fragment instanceof CategoryCollectFragment){
+                    CategoryCollectDialog dialog = new CategoryCollectDialog(currentContext,
+                            (CategoryCollectFragment) fragment);
+                    dialog.show();
+                }
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home)
                 .setOpenableLayout(drawer)

@@ -30,6 +30,9 @@ public class CategoryCollectFragment extends Fragment {
     public static CategoryCollectFragment newInstance() {
         return new CategoryCollectFragment();
     }
+    public CategoryCollectViewModel getViewModel(){
+        return mViewModel;
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
