@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 public abstract class AppDatabase extends RoomDatabase {
     public abstract CategoryCollectDao categoryCollectDao();
     public static AppDatabase INSTANCE;
-    private static RoomDatabase.Callback callback = new Callback() {
+    private static final RoomDatabase.Callback callback = new Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
@@ -41,7 +41,7 @@ public abstract class AppDatabase extends RoomDatabase {
         return INSTANCE;
     }
     public static class PopulateData extends AsyncTask<Void, Void, Void>{
-        private CategoryCollectDao categoryCollectDao;
+        private final CategoryCollectDao categoryCollectDao;
 
         public PopulateData(AppDatabase db) {
             categoryCollectDao = db.categoryCollectDao();

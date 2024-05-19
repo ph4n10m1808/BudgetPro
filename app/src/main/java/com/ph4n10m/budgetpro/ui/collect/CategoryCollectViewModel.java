@@ -13,8 +13,8 @@ import com.ph4n10m.budgetpro.repository.CategoryCollectRepository;
 import java.util.List;
 
 public class CategoryCollectViewModel extends AndroidViewModel {
-    private CategoryCollectRepository mCategoryCollectRepository;
-    private LiveData<List<CategoryCollect>> mAllCategoryCollect;
+    private final CategoryCollectRepository mCategoryCollectRepository;
+    private final LiveData<List<CategoryCollect>> mAllCategoryCollect;
     public CategoryCollectViewModel(@NonNull Application application) {
         super(application);
         mCategoryCollectRepository = new CategoryCollectRepository(application);
@@ -26,5 +26,11 @@ public class CategoryCollectViewModel extends AndroidViewModel {
     }
     public void insert(CategoryCollect categoryCollect){
         mCategoryCollectRepository.insert(categoryCollect);
+    }
+    public void  delete(CategoryCollect categoryCollect){
+        mCategoryCollectRepository.delete(categoryCollect);
+    }
+    public void update(CategoryCollect categoryCollect){
+        mCategoryCollectRepository.update(categoryCollect);
     }
 }

@@ -19,10 +19,20 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 public class CategoryCollectRecyclerviewAdapter extends RecyclerView.Adapter<CategoryCollectRecyclerviewAdapter.CategoryCollectViewHolder> {
-    private LayoutInflater mLayoutInflater;
+    private final LayoutInflater mLayoutInflater;
     private List<CategoryCollect> mList;
+    public static ItemClickListener itemEditClickListener;
+    public static ItemClickListener itemViewClickListener;
     public CategoryCollectRecyclerviewAdapter(Context context) {
         mLayoutInflater = LayoutInflater.from(context);
+    }
+
+    public  void setOnItemEditClickListener(ItemClickListener itemEditClickListener) {
+        CategoryCollectRecyclerviewAdapter.itemEditClickListener = itemEditClickListener;
+    }
+
+    public  void setOnItemViewClickListener(ItemClickListener itemViewClickListener) {
+        CategoryCollectRecyclerviewAdapter.itemViewClickListener = itemViewClickListener;
     }
 
     @NonNull
@@ -37,6 +47,7 @@ public class CategoryCollectRecyclerviewAdapter extends RecyclerView.Adapter<Cat
         if(mList !=null)
         {
             holder.tvName.setText(mList.get(position).name);
+            holder.position = position ;
         }
     }
 
@@ -48,6 +59,13 @@ public class CategoryCollectRecyclerviewAdapter extends RecyclerView.Adapter<Cat
             return mList.size();
         }
     }
+    public CategoryCollect getItem(int position){
+        if(mList == null || position >= mList.size())
+        {
+            return null;
+        }
+        return mList.get(position);
+    }
     public void setList(List<CategoryCollect> mList){
         this.mList = mList;
         notifyDataSetChanged();
@@ -57,12 +75,30 @@ public class CategoryCollectRecyclerviewAdapter extends RecyclerView.Adapter<Cat
         public TextView tvName;
         public ImageView ivEdit, ivView;
         public CardView cv;
+        public int position;
         public CategoryCollectViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvName);
             ivView = itemView.findViewById(R.id.ivView);
             ivEdit = itemView.findViewById(R.id.ivEdit);
             cv = (CardView) itemView;
+
+            ivView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (itemViewClickListener !=null ){
+                        itemViewClickListener.onItemClick(position);
+                    }
+                }
+            });
+            ivEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(itemEditClickListener != null){
+                        itemEditClickListener.onItemClick(position);
+                    }
+                }
+            });
         }
     }
 }

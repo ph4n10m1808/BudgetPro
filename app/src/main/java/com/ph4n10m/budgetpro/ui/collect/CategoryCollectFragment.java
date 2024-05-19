@@ -8,16 +8,20 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
 import com.ph4n10m.budgetpro.R;
 import com.ph4n10m.budgetpro.adapter.CategoryCollectRecyclerviewAdapter;
+import com.ph4n10m.budgetpro.adapter.ItemClickListener;
+import com.ph4n10m.budgetpro.dialog.CategoryCollectDialog;
 import com.ph4n10m.budgetpro.entity.CategoryCollect;
 
 import java.util.List;
@@ -46,6 +50,35 @@ public class CategoryCollectFragment extends Fragment {
         mAdapter = new CategoryCollectRecyclerviewAdapter(getActivity());
         mRv.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRv.setAdapter(mAdapter);
+        final CategoryCollectFragment currentFragment = this;
+        mAdapter.setOnItemEditClickListener(new ItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                CategoryCollect categoryCollect = mAdapter.getItem(position);
+                CategoryCollectDialog dialog = new CategoryCollectDialog(getActivity(), currentFragment, categoryCollect);
+                dialog.show();
+            }
+        });
+        ItemTouchHelper helper = new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(0,
+                        ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT
+                ) {
+                    @Override
+                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                        int position = viewHolder.getAdapterPosition();
+                        CategoryCollect categoryCollect = mAdapter.getItem(position);
+
+                        Toast.makeText(getActivity(), "Loai thu da duoc xoa", Toast.LENGTH_SHORT).show();
+                        mViewModel.delete(categoryCollect);
+                    }
+                }
+        );
+        helper.attachToRecyclerView(mRv);
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

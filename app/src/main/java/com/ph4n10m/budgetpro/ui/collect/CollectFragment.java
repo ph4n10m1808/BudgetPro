@@ -45,11 +45,11 @@ public class CollectFragment extends Fragment {
                 if(position ==0)
                 {
                     tab.setIcon(R.drawable.ic_menu_camera);
-                    tab.setText("Khoảng Thu");
+                    tab.setText("Khoản Thu");
                 }
                 else {
                     tab.setIcon(R.drawable.ic_menu_camera);
-                    tab.setText("Loại Khoảng Thu");
+                    tab.setText("Nguồn Thu Nhập");
                 }
 
             }

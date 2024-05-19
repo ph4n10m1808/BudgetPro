@@ -14,18 +14,28 @@ import com.ph4n10m.budgetpro.ui.collect.CategoryCollectFragment;
 import com.ph4n10m.budgetpro.ui.collect.CategoryCollectViewModel;
 
 public class CategoryCollectDialog {
-    private CategoryCollectViewModel mViewModel;
-    private LayoutInflater mLayoutInflater;
-    private AlertDialog mDialog;
-    private TextInputEditText etId, etName;
+    private final CategoryCollectViewModel mViewModel;
+    private final LayoutInflater mLayoutInflater;
+    private final AlertDialog mDialog;
+    private final TextInputEditText etId;
+    private final TextInputEditText etName;
     private boolean mEditMode;
 
-    public CategoryCollectDialog(Context context, CategoryCollectFragment fragment){
+    public CategoryCollectDialog(Context context, CategoryCollectFragment fragment, CategoryCollect ... categoryCollect){
         mViewModel = fragment.getViewModel();
         mLayoutInflater = LayoutInflater.from(context);
         View view = mLayoutInflater.inflate(R.layout.dialog_category_collect, null);
         etId = view.findViewById(R.id.etId);
         etName = view.findViewById(R.id.etName);
+        if (categoryCollect !=null && categoryCollect.length >0){
+            etId.setText(""+categoryCollect[0].category_id);
+            etName.setText(categoryCollect[0].name);
+            mEditMode = true;
+        }
+        else
+        {
+            mEditMode = false;
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
                 .setView(view)
                 .setNegativeButton("Đóng", new DialogInterface.OnClickListener() {
@@ -39,8 +49,14 @@ public class CategoryCollectDialog {
                     public void onClick(DialogInterface dialog, int which) {
                         CategoryCollect categoryCollect = new CategoryCollect();
                         categoryCollect.name = etName.getText().toString();
-                        mViewModel.insert(categoryCollect);
-                        Toast.makeText(context,"Loại thu được lưu", Toast.LENGTH_SHORT).show();
+                        if(mEditMode){
+                            categoryCollect.category_id = Integer.parseInt(etId.getText().toString());
+                            mViewModel.update(categoryCollect);
+                        }else {
+                            mViewModel.insert(categoryCollect);
+                            Toast.makeText(context,"Loại thu được lưu", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 });
         mDialog = builder.create();
