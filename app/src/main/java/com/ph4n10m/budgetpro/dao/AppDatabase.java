@@ -11,11 +11,10 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.ph4n10m.budgetpro.entity.CategoryCollect;
 
-import org.jetbrains.annotations.NotNull;
-
 @Database(entities = {CategoryCollect.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract CategoryCollectDao categoryCollectDao();
+
     public static AppDatabase INSTANCE;
     private static final RoomDatabase.Callback callback = new Callback() {
         @Override
@@ -24,12 +23,10 @@ public abstract class AppDatabase extends RoomDatabase {
             new PopulateData(INSTANCE).execute();
         }
     };
-    public static AppDatabase getDatabase(final Context context)
-    {
-        if (INSTANCE == null)
-        {
-            synchronized (AppDatabase.class)
-            {
+
+    public static AppDatabase getDatabase(final Context context) {
+        if (INSTANCE == null) {
+            synchronized (AppDatabase.class) {
                 INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                 AppDatabase.class,
                                 "personal_db")
@@ -40,7 +37,8 @@ public abstract class AppDatabase extends RoomDatabase {
         }
         return INSTANCE;
     }
-    public static class PopulateData extends AsyncTask<Void, Void, Void>{
+
+    public static class PopulateData extends AsyncTask<Void, Void, Void> {
         private final CategoryCollectDao categoryCollectDao;
 
         public PopulateData(AppDatabase db) {
@@ -49,11 +47,10 @@ public abstract class AppDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            String [] categorycollects = new String[]{"Luong","Thuong","Khac"};
-            for(String it: categorycollects)
-            {
+            String[] categorycollects = new String[]{"Lương", "Thưởng", "Khác"};
+            for (String it : categorycollects) {
                 CategoryCollect categorycollect = new CategoryCollect();
-                categorycollect.name=it;
+                categorycollect.name = it;
                 categoryCollectDao.insert(categorycollect);
             }
             return null;

@@ -8,6 +8,6 @@ import androidx.room.PrimaryKey;
 public class CategoryCollect {
     @PrimaryKey(autoGenerate = true)
     public int category_id;
-    @ColumnInfo(name="name")
+    @ColumnInfo(name = "name")
     public String name;
 }

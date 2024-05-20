@@ -19,21 +19,19 @@ public class CategoryCollectDialog {
     private final AlertDialog mDialog;
     private final TextInputEditText etId;
     private final TextInputEditText etName;
-    private boolean mEditMode;
+    private final boolean mEditMode;
 
-    public CategoryCollectDialog(Context context, CategoryCollectFragment fragment, CategoryCollect ... categoryCollect){
+    public CategoryCollectDialog(Context context, CategoryCollectFragment fragment, CategoryCollect... categoryCollect) {
         mViewModel = fragment.getViewModel();
         mLayoutInflater = LayoutInflater.from(context);
         View view = mLayoutInflater.inflate(R.layout.dialog_category_collect, null);
         etId = view.findViewById(R.id.etId);
         etName = view.findViewById(R.id.etName);
-        if (categoryCollect !=null && categoryCollect.length >0){
-            etId.setText(""+categoryCollect[0].category_id);
+        if (categoryCollect != null && categoryCollect.length > 0) {
+            etId.setText("" + categoryCollect[0].category_id);
             etName.setText(categoryCollect[0].name);
             mEditMode = true;
-        }
-        else
-        {
+        } else {
             mEditMode = false;
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
@@ -49,19 +47,20 @@ public class CategoryCollectDialog {
                     public void onClick(DialogInterface dialog, int which) {
                         CategoryCollect categoryCollect = new CategoryCollect();
                         categoryCollect.name = etName.getText().toString();
-                        if(mEditMode){
+                        if (mEditMode) {
                             categoryCollect.category_id = Integer.parseInt(etId.getText().toString());
                             mViewModel.update(categoryCollect);
-                        }else {
+                        } else {
                             mViewModel.insert(categoryCollect);
-                            Toast.makeText(context,"Loại thu được lưu", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Loại thu được lưu", Toast.LENGTH_SHORT).show();
                         }
 
                     }
                 });
         mDialog = builder.create();
     }
-    public void show(){
+
+    public void show() {
         mDialog.show();
     }
 }

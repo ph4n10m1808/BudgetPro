@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ph4n10m.budgetpro.R;
 import com.ph4n10m.budgetpro.entity.CategoryCollect;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 public class CategoryCollectRecyclerviewAdapter extends RecyclerView.Adapter<CategoryCollectRecyclerviewAdapter.CategoryCollectViewHolder> {
@@ -23,31 +21,31 @@ public class CategoryCollectRecyclerviewAdapter extends RecyclerView.Adapter<Cat
     private List<CategoryCollect> mList;
     public static ItemClickListener itemEditClickListener;
     public static ItemClickListener itemViewClickListener;
+
     public CategoryCollectRecyclerviewAdapter(Context context) {
         mLayoutInflater = LayoutInflater.from(context);
     }
 
-    public  void setOnItemEditClickListener(ItemClickListener itemEditClickListener) {
+    public void setOnItemEditClickListener(ItemClickListener itemEditClickListener) {
         CategoryCollectRecyclerviewAdapter.itemEditClickListener = itemEditClickListener;
     }
 
-    public  void setOnItemViewClickListener(ItemClickListener itemViewClickListener) {
+    public void setOnItemViewClickListener(ItemClickListener itemViewClickListener) {
         CategoryCollectRecyclerviewAdapter.itemViewClickListener = itemViewClickListener;
     }
 
     @NonNull
     @Override
     public CategoryCollectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mLayoutInflater.inflate(R.layout.recyclerview_category_collect_item, parent,false);
+        View view = mLayoutInflater.inflate(R.layout.recyclerview_category_collect_item, parent, false);
         return new CategoryCollectViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CategoryCollectViewHolder holder, int position) {
-        if(mList !=null)
-        {
+        if (mList != null) {
             holder.tvName.setText(mList.get(position).name);
-            holder.position = position ;
+            holder.position = position;
         }
     }
 
@@ -59,23 +57,25 @@ public class CategoryCollectRecyclerviewAdapter extends RecyclerView.Adapter<Cat
             return mList.size();
         }
     }
-    public CategoryCollect getItem(int position){
-        if(mList == null || position >= mList.size())
-        {
+
+    public CategoryCollect getItem(int position) {
+        if (mList == null || position >= mList.size()) {
             return null;
         }
         return mList.get(position);
     }
-    public void setList(List<CategoryCollect> mList){
+
+    public void setList(List<CategoryCollect> mList) {
         this.mList = mList;
         notifyDataSetChanged();
     }
 
-    public static class CategoryCollectViewHolder extends RecyclerView.ViewHolder{
+    public static class CategoryCollectViewHolder extends RecyclerView.ViewHolder {
         public TextView tvName;
         public ImageView ivEdit, ivView;
         public CardView cv;
         public int position;
+
         public CategoryCollectViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvName);
@@ -86,7 +86,7 @@ public class CategoryCollectRecyclerviewAdapter extends RecyclerView.Adapter<Cat
             ivView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (itemViewClickListener !=null ){
+                    if (itemViewClickListener != null) {
                         itemViewClickListener.onItemClick(position);
                     }
                 }
@@ -94,7 +94,7 @@ public class CategoryCollectRecyclerviewAdapter extends RecyclerView.Adapter<Cat
             ivEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(itemEditClickListener != null){
+                    if (itemEditClickListener != null) {
                         itemEditClickListener.onItemClick(position);
                     }
                 }
