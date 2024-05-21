@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ph4n10m.budgetpro.R;
 import com.ph4n10m.budgetpro.adapter.CategoryCollectRecyclerviewAdapter;
 import com.ph4n10m.budgetpro.adapter.ItemClickListener;
+import com.ph4n10m.budgetpro.dialog.CategoryCollectDetailDialog;
 import com.ph4n10m.budgetpro.dialog.CategoryCollectDialog;
 import com.ph4n10m.budgetpro.entity.CategoryCollect;
 
@@ -56,6 +57,15 @@ public class CategoryCollectFragment extends Fragment {
             public void onItemClick(int position) {
                 CategoryCollect categoryCollect = mAdapter.getItem(position);
                 CategoryCollectDialog dialog = new CategoryCollectDialog(getActivity(), currentFragment, categoryCollect);
+                dialog.show();
+            }
+        });
+        mAdapter.setOnItemViewClickListener(new ItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                CategoryCollect categoryCollect = mAdapter.getItem(position);
+                CategoryCollectDetailDialog dialog = new CategoryCollectDetailDialog(getActivity(), currentFragment,
+                        categoryCollect);
                 dialog.show();
             }
         });
