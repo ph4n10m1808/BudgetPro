@@ -18,6 +18,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 import com.ph4n10m.budgetpro.databinding.ActivityMainBinding;
 import com.ph4n10m.budgetpro.dialog.CategoryCollectDialog;
+import com.ph4n10m.budgetpro.dialog.CollectDialog;
+import com.ph4n10m.budgetpro.ui.collect.ApproximatelyCollectFragment;
 import com.ph4n10m.budgetpro.ui.collect.CategoryCollectFragment;
 
 import java.util.List;
@@ -44,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
                 if (fragment instanceof CategoryCollectFragment) {
                     CategoryCollectDialog dialog = new CategoryCollectDialog(currentContext,
                             (CategoryCollectFragment) fragment);
+                    dialog.show();
+                }
+                else if (fragment instanceof ApproximatelyCollectFragment)
+                {
+                    CollectDialog dialog = new CollectDialog(currentContext, (ApproximatelyCollectFragment) fragment);
                     dialog.show();
                 }
             }

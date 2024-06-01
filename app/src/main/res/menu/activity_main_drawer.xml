@@ -9,13 +9,13 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_spend"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Khoảng Chi" />
-        <item
             android:id="@+id/nav_collect"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Khoảng Thu" />
+            android:title="Khoản Thu" />
+        <item
+            android:id="@+id/nav_spend"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Khoản Chi" />
         <item
             android:id="@+id/nav_statistics"
             android:icon="@drawable/ic_menu_camera"
