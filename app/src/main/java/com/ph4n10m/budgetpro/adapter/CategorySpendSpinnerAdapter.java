@@ -8,18 +8,18 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ph4n10m.budgetpro.R;
-import com.ph4n10m.budgetpro.entity.CategoryCollect;
+import com.ph4n10m.budgetpro.entity.CategorySpend;
 
 import java.util.List;
 
-public class CategoryCollectSpinnerAdapter extends BaseAdapter {
-    private List<CategoryCollect> mList;
+public class CategorySpendSpinnerAdapter extends BaseAdapter {
+    private List<CategorySpend> mList;
     private final LayoutInflater mLayoutflater;
-    public CategoryCollectSpinnerAdapter(Context context){
+    public CategorySpendSpinnerAdapter(Context context){
         mLayoutflater = LayoutInflater.from(context);
     }
 
-    public void setList(List<CategoryCollect> mList) {
+    public void setList(List<CategorySpend> mList) {
         this.mList = mList;
         notifyDataSetChanged();
     }
@@ -45,22 +45,22 @@ public class CategoryCollectSpinnerAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ApproximatelyCollectViewHolder holder;
+        ApproximatelySpendViewHolder holder;
         if(convertView == null)
         {
-            convertView = mLayoutflater.inflate(R.layout.spinner_collect_item, null,false);
-            holder = new ApproximatelyCollectViewHolder(convertView);
+            convertView = mLayoutflater.inflate(R.layout.spinner_spend_item, null,false);
+            holder = new ApproximatelySpendViewHolder(convertView);
             convertView.setTag(holder);
         }
         else{
-            holder = (ApproximatelyCollectViewHolder) convertView.getTag();
+            holder = (ApproximatelySpendViewHolder) convertView.getTag();
         }
         holder.tvMame.setText(mList.get(position).name);
         return convertView ;
     }
-    public static class ApproximatelyCollectViewHolder{
+    public static class ApproximatelySpendViewHolder{
         public TextView tvMame;
-        public ApproximatelyCollectViewHolder(View view){
+        public ApproximatelySpendViewHolder(View view){
             tvMame = view.findViewById(R.id.tvName);
         }
     }

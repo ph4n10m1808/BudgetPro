@@ -19,11 +19,9 @@ public class CategoryCollectRepository {
         this.mCategoryCollectDao = AppDatabase.getDatabase(application).categoryCollectDao();
         mAllCategoryCollect = mCategoryCollectDao.findAll();
     }
-
     public LiveData<List<CategoryCollect>> getAllCategoryCollect() {
         return mAllCategoryCollect;
     }
-
     public void insert(CategoryCollect categoryCollect) {
         new InsertAsyncTask(mCategoryCollectDao).execute(categoryCollect);
     }

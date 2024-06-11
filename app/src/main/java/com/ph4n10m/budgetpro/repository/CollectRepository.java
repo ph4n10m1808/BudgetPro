@@ -4,7 +4,6 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
-import androidx.room.Dao;
 
 import com.ph4n10m.budgetpro.dao.AppDatabase;
 import com.ph4n10m.budgetpro.dao.CollectDao;
@@ -20,7 +19,6 @@ public class CollectRepository {
         this.mCollectDao = AppDatabase.getDatabase(application).collectDao();
         mAllCollect = mCollectDao.findAll();
     }
-
     public LiveData<List<Collect>> getAllCollect() {
         return mAllCollect;
     }

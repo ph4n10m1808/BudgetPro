@@ -11,12 +11,19 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.ph4n10m.budgetpro.entity.CategoryCollect;
+import com.ph4n10m.budgetpro.entity.CategorySpend;
 import com.ph4n10m.budgetpro.entity.Collect;
+import com.ph4n10m.budgetpro.entity.Spend;
 
-@Database(entities = {CategoryCollect.class, Collect.class}, version = 3)
+@Database(entities = {CategoryCollect.class, Collect.class, CategorySpend.class, Spend.class}, version = 5)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract CategoryCollectDao categoryCollectDao();
     public abstract  CollectDao collectDao();
+
+    public abstract CategorySpendDao categorySpendDao();
+
+    public abstract SpendDao spendDao();
+
 
     public static AppDatabase INSTANCE;
     private static final RoomDatabase.Callback callback = new Callback() {
@@ -45,10 +52,13 @@ public abstract class AppDatabase extends RoomDatabase {
     public static class PopulateData extends AsyncTask<Void, Void, Void> {
         private final CategoryCollectDao categoryCollectDao;
         private final CollectDao collectDao;
-
+        private final CategorySpendDao categorySpendDao;
+        private final SpendDao spendDao;
         public PopulateData(AppDatabase db) {
             categoryCollectDao = db.categoryCollectDao();
             collectDao = db.collectDao();
+            categorySpendDao = db.categorySpendDao();
+            spendDao = db.spendDao();
         }
 
         @Override
@@ -59,12 +69,25 @@ public abstract class AppDatabase extends RoomDatabase {
                 categorycollect.name = it;
                 categoryCollectDao.insert(categorycollect);
             }
+            String[] categoryspends = new String[]{"Cố định", "Không cố định"};
+            for (String it : categoryspends) {
+                CategorySpend categorySpend = new CategorySpend();
+                categorySpend.name = it;
+                categorySpendDao.insert(categorySpend);
+            }
             Collect collect = new Collect();
             collect.name="Thu tháng 1";
             collect.money=3000;
             collect.category_id=1;
             collect.note="1";
             collectDao.insert(collect);
+            Spend spend = new Spend();
+            spend.name = "Thu tháng 1";
+            spend.money = 3000;
+            spend.category_spend_id = 1;
+            spend.note = "1";
+            spendDao.insert(spend);
+
             Log.d("BudgetPro: ", "insert data");
 
             return null;

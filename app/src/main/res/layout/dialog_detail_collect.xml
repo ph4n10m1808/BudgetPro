@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
             android:gravity="center"
-            android:text="Thông tin nguồn thu"
+            android:text="Thông tin khoản thu"
             android:textSize="20sp" />
     </LinearLayout>
 
@@ -31,13 +31,14 @@
             android:orientation="vertical">
 
             <TextView
+                android:textStyle="bold"
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="Mã nguồn thu"
-                android:textStyle="bold"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:text="Mã Khoản Thu" />
+
 
             <TextView
                 android:id="@+id/tvId"
@@ -51,8 +52,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:text="Tên Khoản Thu"
                 android:textStyle="bold"
-                android:text="Tên Nguồn thu"
                 android:textSize="18sp" />
 
             <TextView
@@ -61,6 +62,55 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="18sp"
+                android:text="Tên Nguồn Thu" />
+
+            <TextView
+                android:id="@+id/tvCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="18sp"
+                android:text="Số Tiền" />
+
+            <TextView
+                android:id="@+id/tvMoney"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="18sp"
+                android:text="Ghi Chú" />
+
+            <TextView
+                android:id="@+id/tvNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="18sp"
+                android:inputType="textMultiLine"/>
         </LinearLayout>
     </ScrollView>
 

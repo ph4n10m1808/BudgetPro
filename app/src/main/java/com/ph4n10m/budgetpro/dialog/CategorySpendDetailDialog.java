@@ -8,34 +8,28 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.ph4n10m.budgetpro.R;
-import com.ph4n10m.budgetpro.entity.Collect;
-import com.ph4n10m.budgetpro.ui.collect.ApproximatelyCollectFragment;
-import com.ph4n10m.budgetpro.ui.collect.ApproximatelyCollectViewModel;
+import com.ph4n10m.budgetpro.entity.CategoryCollect;
+import com.ph4n10m.budgetpro.entity.CategorySpend;
+import com.ph4n10m.budgetpro.ui.collect.CategoryCollectFragment;
+import com.ph4n10m.budgetpro.ui.collect.CategoryCollectViewModel;
+import com.ph4n10m.budgetpro.ui.spend.CategorySpendFragment;
+import com.ph4n10m.budgetpro.ui.spend.CategorySpendViewModel;
 
-public class CollectDetailDialog {
-    private final ApproximatelyCollectViewModel mViewModel;
+public class CategorySpendDetailDialog {
+    private final CategorySpendViewModel mViewModel;
     private final LayoutInflater mLayoutInflater;
     private final AlertDialog mDialog;
     private final TextView tvId;
     private final TextView tvName;
-    private final TextView tvCategory;
-    private final TextView tvMoney;
-    private final TextView tvNote;
 
-    public CollectDetailDialog(Context context, ApproximatelyCollectFragment fragment, Collect collect) {
+    public CategorySpendDetailDialog(Context context, CategorySpendFragment fragment, CategorySpend categorySpend) {
         mViewModel = fragment.getViewModel();
         mLayoutInflater = LayoutInflater.from(context);
-        View view = mLayoutInflater.inflate(R.layout.dialog_detail_collect, null);
+        View view = mLayoutInflater.inflate(R.layout.dialog_detail_category_spend, null);
         tvId = view.findViewById(R.id.tvId);
-        tvCategory = view.findViewById(R.id.tvCategory);
-        tvMoney = view.findViewById(R.id.tvMoney);
-        tvNote = view.findViewById(R.id.tvNote);
         tvName = view.findViewById(R.id.tvName);
-        tvId.setText("" + collect.collect_id);
-        tvName.setText(collect.name);
-        tvCategory.setText("" + collect.category_id);
-        tvMoney.setText(collect.money + "Đồng");
-        tvNote.setText(collect.note);
+        tvId.setText("" + categorySpend.catrgory_spend_id);
+        tvName.setText(categorySpend.name);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
                 .setView(view)

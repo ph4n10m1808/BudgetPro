@@ -38,10 +38,10 @@ public class SpendFragment extends Fragment {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                 if (position == 0) {
-                    tab.setText("Khoảnh Chi");
+                    tab.setText("Khoản Chi");
                     tab.setIcon(R.drawable.ic_menu_gallery);
                 } else {
-                    tab.setText("Loại Khoảng Chi");
+                    tab.setText("Các loại Khoản Chi");
                     tab.setIcon(R.drawable.ic_menu_gallery);
                 }
             }

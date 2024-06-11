@@ -11,8 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ph4n10m.budgetpro.R;
 import com.ph4n10m.budgetpro.adapter.CollectRecyclerviewAdapter;
 import com.ph4n10m.budgetpro.adapter.ItemClickListener;
+import com.ph4n10m.budgetpro.dialog.CollectDetailDialog;
 import com.ph4n10m.budgetpro.dialog.CollectDialog;
 import com.ph4n10m.budgetpro.entity.Collect;
 
@@ -44,14 +43,43 @@ public class ApproximatelyCollectFragment extends Fragment {
         mAdapter = new CollectRecyclerviewAdapter(getActivity());
         mRv.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRv.setAdapter(mAdapter);
-//        final ApproximatelyCollectViewModel currentFragment = this;
-//        mAdapter.setOnItemViewClickListener(new ItemClickListener() {
-//            @Override
-//            public void onItemClick(int position) {
-//                Collect collect = mAdapter.getItem(position);
-//                CollectDialog dialog = new C
-//            }
-//        });
+        final ApproximatelyCollectFragment currentFragment = this;
+        mAdapter.setOnItemViewClickListener(new ItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Collect collect = mAdapter.getItem(position);
+                CollectDialog dialog = new CollectDialog(getActivity(), currentFragment, collect);
+                dialog.show();
+            }
+        });
+        mAdapter.setOnItemViewClickListener(new ItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Collect collect = mAdapter.getItem(position);
+                CollectDetailDialog dialog = new CollectDetailDialog(getActivity(), currentFragment,
+                        collect);
+                dialog.show();
+            }
+        });
+        ItemTouchHelper helper = new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(0,
+                        ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                    @Override
+                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                        int position = viewHolder.getAdapterPosition();
+                        Collect collect = mAdapter.getItem(position);
+                        Toast.makeText(getActivity(), "Khoản thu đã được xóa", Toast.LENGTH_SHORT).show();
+                        mViewModel.delete(collect);
+                    }
+                }
+
+        );
+        helper.attachToRecyclerView(mRv);
     }
 
     @Override

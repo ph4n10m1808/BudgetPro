@@ -13,36 +13,37 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ph4n10m.budgetpro.R;
 import com.ph4n10m.budgetpro.entity.Collect;
+import com.ph4n10m.budgetpro.entity.Spend;
 
 import java.util.List;
 
-public class CollectRecyclerviewAdapter extends RecyclerView.Adapter<CollectRecyclerviewAdapter.CollectViewHolder> {
+public class SpendRecyclerviewAdapter extends RecyclerView.Adapter<SpendRecyclerviewAdapter.SpendViewHolder> {
     private final LayoutInflater mLayoutInflater;
-    private List<Collect> mList;
+    private List<Spend> mList;
     public static ItemClickListener itemEditClickListener;
     public static ItemClickListener itemViewClickListener;
 
-    public CollectRecyclerviewAdapter(Context context) {
+    public SpendRecyclerviewAdapter(Context context) {
         mLayoutInflater = LayoutInflater.from(context);
     }
 
     public void setOnItemEditClickListener(ItemClickListener itemEditClickListener) {
-        CollectRecyclerviewAdapter.itemEditClickListener = itemEditClickListener;
+        SpendRecyclerviewAdapter.itemEditClickListener = itemEditClickListener;
     }
 
     public void setOnItemViewClickListener(ItemClickListener itemViewClickListener) {
-        CollectRecyclerviewAdapter.itemViewClickListener = itemViewClickListener;
+        SpendRecyclerviewAdapter.itemViewClickListener = itemViewClickListener;
     }
 
     @NonNull
     @Override
-    public CollectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mLayoutInflater.inflate(R.layout.recyclerview_collect_item, parent, false);
-        return new CollectViewHolder(view);
+    public SpendViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = mLayoutInflater.inflate(R.layout.recyclerview_spend_item, parent, false);
+        return new SpendViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CollectViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SpendViewHolder holder, int position) {
         if (mList != null) {
             holder.tvName.setText(mList.get(position).name);
             holder.tvAmount.setText(mList.get(position).money + " Đồng");
@@ -59,25 +60,25 @@ public class CollectRecyclerviewAdapter extends RecyclerView.Adapter<CollectRecy
         }
     }
 
-    public Collect getItem(int position) {
+    public Spend getItem(int position) {
         if (mList == null || position >= mList.size()) {
             return null;
         }
         return mList.get(position);
     }
 
-    public void setList(List<Collect> mList) {
+    public void setList(List<Spend> mList) {
         this.mList = mList;
         notifyDataSetChanged();
     }
 
-    public static class CollectViewHolder extends RecyclerView.ViewHolder {
+    public static class SpendViewHolder extends RecyclerView.ViewHolder {
         public TextView tvName, tvAmount;
         public ImageView ivEdit, ivView;
         public CardView cv;
         public int position;
 
-        public CollectViewHolder(@NonNull View itemView) {
+        public SpendViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvName);
             tvAmount = itemView.findViewById(R.id.tvAmount);

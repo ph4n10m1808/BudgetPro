@@ -12,40 +12,39 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ph4n10m.budgetpro.R;
-import com.ph4n10m.budgetpro.entity.Collect;
+import com.ph4n10m.budgetpro.entity.CategorySpend;
 
 import java.util.List;
 
-public class CollectRecyclerviewAdapter extends RecyclerView.Adapter<CollectRecyclerviewAdapter.CollectViewHolder> {
+public class CategorySpendRecyclerviewAdapter extends RecyclerView.Adapter<CategorySpendRecyclerviewAdapter.CategorySpendViewHolder> {
     private final LayoutInflater mLayoutInflater;
-    private List<Collect> mList;
+    private List<CategorySpend> mList;
     public static ItemClickListener itemEditClickListener;
     public static ItemClickListener itemViewClickListener;
 
-    public CollectRecyclerviewAdapter(Context context) {
+    public CategorySpendRecyclerviewAdapter(Context context) {
         mLayoutInflater = LayoutInflater.from(context);
     }
 
     public void setOnItemEditClickListener(ItemClickListener itemEditClickListener) {
-        CollectRecyclerviewAdapter.itemEditClickListener = itemEditClickListener;
+        CategorySpendRecyclerviewAdapter.itemEditClickListener = itemEditClickListener;
     }
 
     public void setOnItemViewClickListener(ItemClickListener itemViewClickListener) {
-        CollectRecyclerviewAdapter.itemViewClickListener = itemViewClickListener;
+        CategorySpendRecyclerviewAdapter.itemViewClickListener = itemViewClickListener;
     }
 
     @NonNull
     @Override
-    public CollectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mLayoutInflater.inflate(R.layout.recyclerview_collect_item, parent, false);
-        return new CollectViewHolder(view);
+    public CategorySpendViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = mLayoutInflater.inflate(R.layout.recyclerview_category_spend_item, parent, false);
+        return new CategorySpendViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CollectViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CategorySpendViewHolder holder, int position) {
         if (mList != null) {
             holder.tvName.setText(mList.get(position).name);
-            holder.tvAmount.setText(mList.get(position).money + " Đồng");
             holder.position = position;
         }
     }
@@ -59,28 +58,27 @@ public class CollectRecyclerviewAdapter extends RecyclerView.Adapter<CollectRecy
         }
     }
 
-    public Collect getItem(int position) {
+    public CategorySpend getItem(int position) {
         if (mList == null || position >= mList.size()) {
             return null;
         }
         return mList.get(position);
     }
 
-    public void setList(List<Collect> mList) {
+    public void setList(List<CategorySpend> mList) {
         this.mList = mList;
         notifyDataSetChanged();
     }
 
-    public static class CollectViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvName, tvAmount;
+    public static class CategorySpendViewHolder extends RecyclerView.ViewHolder {
+        public TextView tvName;
         public ImageView ivEdit, ivView;
         public CardView cv;
         public int position;
 
-        public CollectViewHolder(@NonNull View itemView) {
+        public CategorySpendViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvName);
-            tvAmount = itemView.findViewById(R.id.tvAmount);
             ivView = itemView.findViewById(R.id.ivView);
             ivEdit = itemView.findViewById(R.id.ivEdit);
             cv = (CardView) itemView;

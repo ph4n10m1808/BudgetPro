@@ -13,15 +13,20 @@ import androidx.lifecycle.Observer;
 import com.google.android.material.textfield.TextInputEditText;
 import com.ph4n10m.budgetpro.R;
 import com.ph4n10m.budgetpro.adapter.CategoryCollectSpinnerAdapter;
+import com.ph4n10m.budgetpro.adapter.CategorySpendSpinnerAdapter;
 import com.ph4n10m.budgetpro.entity.CategoryCollect;
+import com.ph4n10m.budgetpro.entity.CategorySpend;
 import com.ph4n10m.budgetpro.entity.Collect;
+import com.ph4n10m.budgetpro.entity.Spend;
 import com.ph4n10m.budgetpro.ui.collect.ApproximatelyCollectFragment;
 import com.ph4n10m.budgetpro.ui.collect.ApproximatelyCollectViewModel;
+import com.ph4n10m.budgetpro.ui.spend.ApproximatelySpendFragment;
+import com.ph4n10m.budgetpro.ui.spend.ApproximatelySpendViewModel;
 
 import java.util.List;
 
-public class CollectDialog {
-    private final ApproximatelyCollectViewModel mViewModel;
+public class SpendDialog {
+    private final ApproximatelySpendViewModel mViewModel;
     private final LayoutInflater mLayoutInflater;
     private final AlertDialog mDialog;
     private final TextInputEditText etId;
@@ -30,32 +35,32 @@ public class CollectDialog {
     private final TextInputEditText etNote;
     private final Spinner spType;
 
-    private final CategoryCollectSpinnerAdapter mApadter;
+    private final CategorySpendSpinnerAdapter mApadter;
     private final boolean mEditMode;
 
-    public CollectDialog(Context context, ApproximatelyCollectFragment fragment, Collect... Collect) {
+    public SpendDialog(Context context, ApproximatelySpendFragment fragment, Spend... spends) {
         mViewModel = fragment.getViewModel();
         mLayoutInflater = LayoutInflater.from(context);
-        View view = mLayoutInflater.inflate(R.layout.dialog_collect, null);
+        View view = mLayoutInflater.inflate(R.layout.dialog_spend, null);
         etId = view.findViewById(R.id.etId);
         etName = view.findViewById(R.id.etName);
         etAmount = view.findViewById(R.id.etAmount);
         etNote = view.findViewById(R.id.etNote);
         spType = view.findViewById(R.id.spType);
-        mApadter = new CategoryCollectSpinnerAdapter(fragment.getActivity());
-        mViewModel.getAllCategoryCollect().observe(fragment.getActivity(), new Observer<List<CategoryCollect>>() {
+        mApadter = new CategorySpendSpinnerAdapter(fragment.getActivity());
+        mViewModel.getAllCategorySpend().observe(fragment.getActivity(), new Observer<List<CategorySpend>>() {
             @Override
-            public void onChanged(List<CategoryCollect> categoryCollects) {
-                mApadter.setList(categoryCollects);
+            public void onChanged(List<CategorySpend> categorySpends) {
+                mApadter.setList(categorySpends);
             }
         });
         spType.setAdapter(mApadter);
 
-        if (Collect != null && Collect.length > 0) {
-            etId.setText("" + Collect[0].collect_id);
-            etName.setText(Collect[0].name);
-            etAmount.setText(""+Collect[0].money);
-            etNote.setText(Collect[0].note);
+        if (spends != null && spends.length > 0) {
+            etId.setText("" + spends[0].spend_id);
+            etName.setText(spends[0].name);
+            etAmount.setText(""+spends[0].money);
+            etNote.setText(spends[0].note);
             mEditMode = true;
         } else {
             mEditMode = false;
@@ -71,18 +76,18 @@ public class CollectDialog {
                 .setPositiveButton("Lưu", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Collect collect = new Collect();
-                        collect.name = etName.getText().toString();
-                        collect.money = Float.parseFloat(etAmount.getText().toString());
-                        collect.note = etNote.getText().toString();
-                        collect.category_id = ((CategoryCollect) mApadter.getItem(spType.getSelectedItemPosition())).category_id;
+                        Spend spend = new Spend();
+                        spend.name = etName.getText().toString();
+                        spend.money = Float.parseFloat(etAmount.getText().toString());
+                        spend.note = etNote.getText().toString();
+                        spend.category_spend_id = ((CategorySpend) mApadter.getItem(spType.getSelectedItemPosition())).catrgory_spend_id;
                         if (mEditMode) {
-                            collect.collect_id = Integer.parseInt(etId.getText().toString());
-                            collect.money = Float.parseFloat(etAmount.getText().toString());
-                            mViewModel.update(collect);
+                            spend.spend_id = Integer.parseInt(etId.getText().toString());
+                            spend.money = Float.parseFloat(etAmount.getText().toString());
+                            mViewModel.update(spend);
                         } else {
-                            mViewModel.insert(collect);
-                            Toast.makeText(context, "Khoản thu được lưu", Toast.LENGTH_SHORT).show();
+                            mViewModel.insert(spend);
+                            Toast.makeText(context, "Khoản chi được lưu", Toast.LENGTH_SHORT).show();
                         }
 
                     }

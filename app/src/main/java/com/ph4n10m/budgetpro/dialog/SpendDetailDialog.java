@@ -9,11 +9,14 @@ import android.widget.TextView;
 
 import com.ph4n10m.budgetpro.R;
 import com.ph4n10m.budgetpro.entity.Collect;
+import com.ph4n10m.budgetpro.entity.Spend;
 import com.ph4n10m.budgetpro.ui.collect.ApproximatelyCollectFragment;
 import com.ph4n10m.budgetpro.ui.collect.ApproximatelyCollectViewModel;
+import com.ph4n10m.budgetpro.ui.spend.ApproximatelySpendFragment;
+import com.ph4n10m.budgetpro.ui.spend.ApproximatelySpendViewModel;
 
-public class CollectDetailDialog {
-    private final ApproximatelyCollectViewModel mViewModel;
+public class SpendDetailDialog {
+    private final ApproximatelySpendViewModel mViewModel;
     private final LayoutInflater mLayoutInflater;
     private final AlertDialog mDialog;
     private final TextView tvId;
@@ -22,20 +25,20 @@ public class CollectDetailDialog {
     private final TextView tvMoney;
     private final TextView tvNote;
 
-    public CollectDetailDialog(Context context, ApproximatelyCollectFragment fragment, Collect collect) {
+    public SpendDetailDialog(Context context, ApproximatelySpendFragment fragment, Spend spend ) {
         mViewModel = fragment.getViewModel();
         mLayoutInflater = LayoutInflater.from(context);
-        View view = mLayoutInflater.inflate(R.layout.dialog_detail_collect, null);
+        View view = mLayoutInflater.inflate(R.layout.dialog_detail_spend, null);
         tvId = view.findViewById(R.id.tvId);
         tvCategory = view.findViewById(R.id.tvCategory);
         tvMoney = view.findViewById(R.id.tvMoney);
         tvNote = view.findViewById(R.id.tvNote);
         tvName = view.findViewById(R.id.tvName);
-        tvId.setText("" + collect.collect_id);
-        tvName.setText(collect.name);
-        tvCategory.setText("" + collect.category_id);
-        tvMoney.setText(collect.money + "Đồng");
-        tvNote.setText(collect.note);
+        tvId.setText("" + spend.spend_id);
+        tvName.setText(spend.name);
+        tvCategory.setText("" + spend.category_spend_id);
+        tvMoney.setText(spend.money + "Đồng");
+        tvNote.setText(spend.note);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
                 .setView(view)

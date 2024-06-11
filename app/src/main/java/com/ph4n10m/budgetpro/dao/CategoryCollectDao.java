@@ -24,5 +24,4 @@ public interface CategoryCollectDao {
 
     @Delete
     void delete(CategoryCollect categoryCollect);
-
 }
