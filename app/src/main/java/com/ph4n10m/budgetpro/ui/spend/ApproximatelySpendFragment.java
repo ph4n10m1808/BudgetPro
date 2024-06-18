@@ -1,6 +1,5 @@
 package com.ph4n10m.budgetpro.ui.spend;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,17 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ph4n10m.budgetpro.R;
-import com.ph4n10m.budgetpro.adapter.CollectRecyclerviewAdapter;
 import com.ph4n10m.budgetpro.adapter.ItemClickListener;
 import com.ph4n10m.budgetpro.adapter.SpendRecyclerviewAdapter;
-import com.ph4n10m.budgetpro.dialog.CollectDetailDialog;
-import com.ph4n10m.budgetpro.dialog.CollectDialog;
 import com.ph4n10m.budgetpro.dialog.SpendDetailDialog;
 import com.ph4n10m.budgetpro.dialog.SpendDialog;
-import com.ph4n10m.budgetpro.entity.Collect;
 import com.ph4n10m.budgetpro.entity.Spend;
-import com.ph4n10m.budgetpro.ui.collect.ApproximatelyCollectFragment;
-import com.ph4n10m.budgetpro.ui.collect.ApproximatelyCollectViewModel;
 
 import java.util.List;
 
@@ -39,7 +32,8 @@ public class ApproximatelySpendFragment extends Fragment {
     public static ApproximatelySpendFragment newInstance() {
         return new ApproximatelySpendFragment();
     }
-    public ApproximatelySpendViewModel getViewModel(){
+
+    public ApproximatelySpendViewModel getViewModel() {
         return mViewModel;
     }
 
@@ -55,16 +49,16 @@ public class ApproximatelySpendFragment extends Fragment {
             @Override
             public void onItemClick(int position) {
                 Spend spend = mAdapter.getItem(position);
-                SpendDialog dialog = new SpendDialog(getActivity(), currentFragment, spend);
+                SpendDetailDialog dialog = new SpendDetailDialog(getActivity(), currentFragment,
+                        spend);
                 dialog.show();
             }
         });
-        mAdapter.setOnItemViewClickListener(new ItemClickListener() {
+        mAdapter.setOnItemEditClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 Spend spend = mAdapter.getItem(position);
-                SpendDetailDialog dialog = new SpendDetailDialog(getActivity(), currentFragment,
-                        spend);
+                SpendDialog dialog = new SpendDialog(getActivity(), currentFragment, spend);
                 dialog.show();
             }
         });
@@ -79,12 +73,11 @@ public class ApproximatelySpendFragment extends Fragment {
                     @Override
                     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                         int position = viewHolder.getAdapterPosition();
-                        Spend spend  = mAdapter.getItem(position);
+                        Spend spend = mAdapter.getItem(position);
                         Toast.makeText(getActivity(), "Khoản thu đã được xóa", Toast.LENGTH_SHORT).show();
                         mViewModel.delete(spend);
                     }
                 }
-
         );
         helper.attachToRecyclerView(mRv);
     }

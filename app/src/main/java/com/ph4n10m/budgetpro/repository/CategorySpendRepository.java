@@ -6,9 +6,7 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 
 import com.ph4n10m.budgetpro.dao.AppDatabase;
-import com.ph4n10m.budgetpro.dao.CategoryCollectDao;
 import com.ph4n10m.budgetpro.dao.CategorySpendDao;
-import com.ph4n10m.budgetpro.entity.CategoryCollect;
 import com.ph4n10m.budgetpro.entity.CategorySpend;
 
 import java.util.List;
@@ -21,9 +19,15 @@ public class CategorySpendRepository {
         this.mCategorySpendDao = AppDatabase.getDatabase(application).categorySpendDao();
         mAllCategorySpend = mCategorySpendDao.findAll();
     }
+
     public LiveData<List<CategorySpend>> getAllCategorySpend() {
         return mAllCategorySpend;
     }
+
+    public LiveData<String> getName(int id) {
+        return mCategorySpendDao.getName(id);
+    }
+
     public void insert(CategorySpend categorySpend) {
         new InsertAsyncTask(mCategorySpendDao).execute(categorySpend);
     }

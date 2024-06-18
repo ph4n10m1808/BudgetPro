@@ -7,7 +7,9 @@ import androidx.lifecycle.LiveData;
 
 import com.ph4n10m.budgetpro.dao.AppDatabase;
 import com.ph4n10m.budgetpro.dao.CollectDao;
+import com.ph4n10m.budgetpro.entity.ChartCollect;
 import com.ph4n10m.budgetpro.entity.Collect;
+import com.ph4n10m.budgetpro.entity.StatisticsCategoryCollect;
 
 import java.util.List;
 
@@ -19,8 +21,21 @@ public class CollectRepository {
         this.mCollectDao = AppDatabase.getDatabase(application).collectDao();
         mAllCollect = mCollectDao.findAll();
     }
+
     public LiveData<List<Collect>> getAllCollect() {
         return mAllCollect;
+    }
+
+    public LiveData<Float> sumCollect() {
+        return mCollectDao.sumCollect();
+    }
+
+    public LiveData<List<StatisticsCategoryCollect>> sumByCategoryCollect() {
+        return mCollectDao.sumByCategoryCollect();
+    }
+
+    public LiveData<List<ChartCollect>> getChartCollect() {
+        return mCollectDao.getChartCollect();
     }
 
     public void insert(Collect collect) {

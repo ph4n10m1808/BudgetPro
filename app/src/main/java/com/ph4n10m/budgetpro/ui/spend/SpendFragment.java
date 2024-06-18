@@ -24,6 +24,11 @@ public class SpendFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public static SpendFragment newInstance(String param1, String param2) {
+        SpendFragment fragment = new SpendFragment();
+        return fragment;
+    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -39,18 +44,11 @@ public class SpendFragment extends Fragment {
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                 if (position == 0) {
                     tab.setText("Khoản Chi");
-                    tab.setIcon(R.drawable.ic_menu_gallery);
                 } else {
-                    tab.setText("Các loại Khoản Chi");
-                    tab.setIcon(R.drawable.ic_menu_gallery);
+                    tab.setText("Các Loại Khoản Chi");
                 }
             }
         }).attach();
-    }
-
-    public static SpendFragment newInstance(String param1, String param2) {
-        SpendFragment fragment = new SpendFragment();
-        return fragment;
     }
 
     @Override

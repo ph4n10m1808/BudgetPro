@@ -2,115 +2,156 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F5F5"
     android:orientation="vertical"
-    android:padding="5dp">
+    android:padding="10dp">
 
+    <!-- Header Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FF03A9F4"
-        android:orientation="vertical">
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/textView6"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:gravity="center"
-            android:text="Thông tin khoản thu"
-            android:textSize="20sp" />
+            android:text="Thông tin khoản chi"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
+    <!-- Scrollable Content Section -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
 
+            <!-- Mã Khoản Chi -->
             <TextView
-                android:textStyle="bold"
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:text="Mã Khoản Chi"
+                android:textColor="#333333"
                 android:textSize="18sp"
-                android:text="Mã Khoản Thu" />
-
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_marginBottom="10dp"
+                android:background="#FFFFFF"
+                android:elevation="2dp"
+                android:padding="10dp"
+                android:textColor="#000000"
                 android:textSize="18sp" />
 
+            <!-- Tên Khoản Chi -->
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="Tên Khoản Thu"
-                android:textStyle="bold"
-                android:textSize="18sp" />
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:text="Tên Khoản Chi"
+                android:textColor="#333333"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_marginBottom="10dp"
+                android:background="#FFFFFF"
+                android:elevation="2dp"
+                android:padding="10dp"
+                android:textColor="#000000"
                 android:textSize="18sp" />
 
+            <!-- Tên Nguồn Chi -->
             <TextView
                 android:id="@+id/textView11"
-                android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:text="Tên Nguồn Chi"
+                android:textColor="#333333"
                 android:textSize="18sp"
-                android:text="Tên Nguồn Thu" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvCategory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_marginBottom="10dp"
+                android:background="#FFFFFF"
+                android:elevation="2dp"
+                android:padding="10dp"
+                android:textColor="#000000"
                 android:textSize="18sp" />
 
+            <!-- Số Tiền -->
             <TextView
                 android:id="@+id/textView4"
-                android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:text="Số Tiền"
+                android:textColor="#333333"
                 android:textSize="18sp"
-                android:text="Số Tiền" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvMoney"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_marginBottom="10dp"
+                android:background="#FFFFFF"
+                android:elevation="2dp"
+                android:padding="10dp"
+                android:textColor="#000000"
                 android:textSize="18sp" />
 
+            <!-- Ghi Chú -->
             <TextView
                 android:id="@+id/textView8"
-                android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:text="Ghi Chú"
+                android:textColor="#333333"
                 android:textSize="18sp"
-                android:text="Ghi Chú" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvNote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:textSize="18sp"
-                android:inputType="textMultiLine"/>
+                android:layout_marginBottom="10dp"
+                android:background="#FFFFFF"
+                android:elevation="2dp"
+                android:inputType="textMultiLine"
+                android:padding="10dp"
+                android:textColor="#000000"
+                android:textSize="18sp" />
         </LinearLayout>
     </ScrollView>
 

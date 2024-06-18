@@ -6,9 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.ph4n10m.budgetpro.entity.CategoryCollect;
 import com.ph4n10m.budgetpro.entity.CategorySpend;
-import com.ph4n10m.budgetpro.repository.CategoryCollectRepository;
 import com.ph4n10m.budgetpro.repository.CategorySpendRepository;
 
 import java.util.List;

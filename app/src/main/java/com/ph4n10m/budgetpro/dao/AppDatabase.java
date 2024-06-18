@@ -17,14 +17,6 @@ import com.ph4n10m.budgetpro.entity.Spend;
 
 @Database(entities = {CategoryCollect.class, Collect.class, CategorySpend.class, Spend.class}, version = 5)
 public abstract class AppDatabase extends RoomDatabase {
-    public abstract CategoryCollectDao categoryCollectDao();
-    public abstract  CollectDao collectDao();
-
-    public abstract CategorySpendDao categorySpendDao();
-
-    public abstract SpendDao spendDao();
-
-
     public static AppDatabase INSTANCE;
     private static final RoomDatabase.Callback callback = new Callback() {
         @Override
@@ -48,12 +40,20 @@ public abstract class AppDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
+    public abstract CategoryCollectDao categoryCollectDao();
+
+    public abstract CollectDao collectDao();
+
+    public abstract CategorySpendDao categorySpendDao();
+
+    public abstract SpendDao spendDao();
 
     public static class PopulateData extends AsyncTask<Void, Void, Void> {
         private final CategoryCollectDao categoryCollectDao;
         private final CollectDao collectDao;
         private final CategorySpendDao categorySpendDao;
         private final SpendDao spendDao;
+
         public PopulateData(AppDatabase db) {
             categoryCollectDao = db.categoryCollectDao();
             collectDao = db.collectDao();
@@ -76,10 +76,10 @@ public abstract class AppDatabase extends RoomDatabase {
                 categorySpendDao.insert(categorySpend);
             }
             Collect collect = new Collect();
-            collect.name="Thu tháng 1";
-            collect.money=3000;
-            collect.category_id=1;
-            collect.note="1";
+            collect.name = "Thu tháng 1";
+            collect.money = 3000;
+            collect.category_id = 1;
+            collect.note = "1";
             collectDao.insert(collect);
             Spend spend = new Spend();
             spend.name = "Thu tháng 1";

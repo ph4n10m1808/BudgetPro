@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:background="#FF00BCD4"
         android:orientation="vertical">
 
@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
             android:gravity="center"
-            android:text="Khoản Thu"
+            android:text="Khoản Chi"
             android:textSize="20sp" />
     </LinearLayout>
 
@@ -33,7 +33,7 @@
             android:clickable="false"
             android:cursorVisible="false"
             android:focusable="false"
-            android:hint="Mã Khoản Thu" />
+            android:hint="Mã Khoản Chi" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Spinner
@@ -51,7 +51,7 @@
             android:id="@+id/etName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Tên Khoản Thu" />
+            android:hint="Tên Khoản Chi" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,7 +64,7 @@
             android:id="@+id/etAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Số Tiền Thu" />
+            android:hint="Số Tiền Chi" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

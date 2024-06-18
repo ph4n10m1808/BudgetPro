@@ -26,13 +26,14 @@ import java.util.List;
 
 public class ApproximatelyCollectFragment extends Fragment {
     private RecyclerView mRv;
-    private  CollectRecyclerviewAdapter mAdapter;
+    private CollectRecyclerviewAdapter mAdapter;
     private ApproximatelyCollectViewModel mViewModel;
 
     public static ApproximatelyCollectFragment newInstance() {
         return new ApproximatelyCollectFragment();
     }
-    public ApproximatelyCollectViewModel getViewModel(){
+
+    public ApproximatelyCollectViewModel getViewModel() {
         return mViewModel;
     }
 
@@ -44,7 +45,7 @@ public class ApproximatelyCollectFragment extends Fragment {
         mRv.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRv.setAdapter(mAdapter);
         final ApproximatelyCollectFragment currentFragment = this;
-        mAdapter.setOnItemViewClickListener(new ItemClickListener() {
+        mAdapter.setOnItemEditClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 Collect collect = mAdapter.getItem(position);

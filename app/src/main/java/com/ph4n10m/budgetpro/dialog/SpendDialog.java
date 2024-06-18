@@ -3,6 +3,7 @@ package com.ph4n10m.budgetpro.dialog;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Spinner;
@@ -12,14 +13,9 @@ import androidx.lifecycle.Observer;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.ph4n10m.budgetpro.R;
-import com.ph4n10m.budgetpro.adapter.CategoryCollectSpinnerAdapter;
 import com.ph4n10m.budgetpro.adapter.CategorySpendSpinnerAdapter;
-import com.ph4n10m.budgetpro.entity.CategoryCollect;
 import com.ph4n10m.budgetpro.entity.CategorySpend;
-import com.ph4n10m.budgetpro.entity.Collect;
 import com.ph4n10m.budgetpro.entity.Spend;
-import com.ph4n10m.budgetpro.ui.collect.ApproximatelyCollectFragment;
-import com.ph4n10m.budgetpro.ui.collect.ApproximatelyCollectViewModel;
 import com.ph4n10m.budgetpro.ui.spend.ApproximatelySpendFragment;
 import com.ph4n10m.budgetpro.ui.spend.ApproximatelySpendViewModel;
 
@@ -35,7 +31,7 @@ public class SpendDialog {
     private final TextInputEditText etNote;
     private final Spinner spType;
 
-    private final CategorySpendSpinnerAdapter mApadter;
+    private final CategorySpendSpinnerAdapter mAdapter;
     private final boolean mEditMode;
 
     public SpendDialog(Context context, ApproximatelySpendFragment fragment, Spend... spends) {
@@ -47,24 +43,25 @@ public class SpendDialog {
         etAmount = view.findViewById(R.id.etAmount);
         etNote = view.findViewById(R.id.etNote);
         spType = view.findViewById(R.id.spType);
-        mApadter = new CategorySpendSpinnerAdapter(fragment.getActivity());
+        mAdapter = new CategorySpendSpinnerAdapter(fragment.getActivity());
         mViewModel.getAllCategorySpend().observe(fragment.getActivity(), new Observer<List<CategorySpend>>() {
             @Override
             public void onChanged(List<CategorySpend> categorySpends) {
-                mApadter.setList(categorySpends);
+                mAdapter.setList(categorySpends);
             }
         });
-        spType.setAdapter(mApadter);
+        spType.setAdapter(mAdapter);
 
         if (spends != null && spends.length > 0) {
-            etId.setText("" + spends[0].spend_id);
+            etId.setText(String.valueOf(spends[0].spend_id));
             etName.setText(spends[0].name);
-            etAmount.setText(""+spends[0].money);
+            etAmount.setText(String.valueOf(spends[0].money));
             etNote.setText(spends[0].note);
             mEditMode = true;
         } else {
             mEditMode = false;
         }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
                 .setView(view)
                 .setNegativeButton("Đóng", new DialogInterface.OnClickListener() {
@@ -73,26 +70,61 @@ public class SpendDialog {
                         mDialog.dismiss();
                     }
                 })
-                .setPositiveButton("Lưu", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Spend spend = new Spend();
-                        spend.name = etName.getText().toString();
-                        spend.money = Float.parseFloat(etAmount.getText().toString());
-                        spend.note = etNote.getText().toString();
-                        spend.category_spend_id = ((CategorySpend) mApadter.getItem(spType.getSelectedItemPosition())).catrgory_spend_id;
-                        if (mEditMode) {
-                            spend.spend_id = Integer.parseInt(etId.getText().toString());
-                            spend.money = Float.parseFloat(etAmount.getText().toString());
-                            mViewModel.update(spend);
-                        } else {
-                            mViewModel.insert(spend);
-                            Toast.makeText(context, "Khoản chi được lưu", Toast.LENGTH_SHORT).show();
-                        }
+                .setPositiveButton("Lưu", null);  // Set to null to override later
 
+        mDialog = builder.create();
+        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                mDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (validateInput()) {
+                            Spend spend = new Spend();
+                            spend.name = etName.getText().toString();
+                            spend.money = Float.parseFloat(etAmount.getText().toString());
+                            spend.note = etNote.getText().toString();
+                            spend.category_spend_id = ((CategorySpend) mAdapter.getItem(spType.getSelectedItemPosition())).catrgory_spend_id;
+
+                            if (mEditMode) {
+                                spend.spend_id = Integer.parseInt(etId.getText().toString());
+                                mViewModel.update(spend);
+                                Toast.makeText(context, "Khoản chi đã sửa", Toast.LENGTH_SHORT).show();
+                            } else {
+                                mViewModel.insert(spend);
+                                Toast.makeText(context, "Khoản chi được lưu", Toast.LENGTH_SHORT).show();
+                            }
+
+                            mDialog.dismiss();
+                        }
                     }
                 });
-        mDialog = builder.create();
+            }
+        });
+    }
+
+    private boolean validateInput() {
+        // Validate Name
+        if (TextUtils.isEmpty(etName.getText())) {
+            etName.setError("Tên không được để trống");
+            return false;
+        }
+
+        // Validate Amount
+        String amountText = etAmount.getText().toString();
+        if (TextUtils.isEmpty(amountText)) {
+            etAmount.setError("Số tiền không được để trống");
+            return false;
+        }
+
+        try {
+            Float.parseFloat(amountText);
+        } catch (NumberFormatException e) {
+            etAmount.setError("Số tiền không hợp lệ");
+            return false;
+        }
+
+        return true;
     }
 
     public void show() {

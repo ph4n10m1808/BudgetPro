@@ -15,10 +15,16 @@ import java.util.List;
 public interface CategorySpendDao {
     @Query("SELECT * FROM CategorySpend")
     LiveData<List<CategorySpend>> findAll();
+
     @Insert
     void insert(CategorySpend categorySpend);
+
     @Update
     void update(CategorySpend categorySpend);
+
     @Delete
     void delete(CategorySpend categorySpend);
+
+    @Query("SELECT name FROM CategorySpend WHERE catrgory_spend_id = :id")
+    LiveData<String> getName(int id);
 }

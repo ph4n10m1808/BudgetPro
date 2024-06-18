@@ -7,7 +7,9 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.ph4n10m.budgetpro.entity.ChartCollect;
 import com.ph4n10m.budgetpro.entity.Collect;
+import com.ph4n10m.budgetpro.entity.StatisticsCategoryCollect;
 
 import java.util.List;
 
@@ -24,5 +26,14 @@ public interface CollectDao {
 
     @Delete
     void delete(Collect collect);
+
+    @Query("SELECT sum(money) FROM Collect")
+    LiveData<Float> sumCollect();
+
+    @Query("SELECT a.category_id,b.name,sum(a.money) as total FROM Collect a INNER JOIN CategoryCollect b on a.category_id=b.category_id " + "GROUP BY a.category_id,b.name")
+    LiveData<List<StatisticsCategoryCollect>> sumByCategoryCollect();
+
+    @Query("SELECT name, money FROM Collect")
+    LiveData<List<ChartCollect>> getChartCollect();
 
 }

@@ -16,17 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ph4n10m.budgetpro.R;
-import com.ph4n10m.budgetpro.adapter.CategoryCollectRecyclerviewAdapter;
 import com.ph4n10m.budgetpro.adapter.CategorySpendRecyclerviewAdapter;
 import com.ph4n10m.budgetpro.adapter.ItemClickListener;
-import com.ph4n10m.budgetpro.dialog.CategoryCollectDetailDialog;
-import com.ph4n10m.budgetpro.dialog.CategoryCollectDialog;
 import com.ph4n10m.budgetpro.dialog.CategorySpendDetailDialog;
 import com.ph4n10m.budgetpro.dialog.CategorySpendDialog;
-import com.ph4n10m.budgetpro.entity.CategoryCollect;
 import com.ph4n10m.budgetpro.entity.CategorySpend;
-import com.ph4n10m.budgetpro.ui.collect.CategoryCollectFragment;
-import com.ph4n10m.budgetpro.ui.collect.CategoryCollectViewModel;
 
 import java.util.List;
 

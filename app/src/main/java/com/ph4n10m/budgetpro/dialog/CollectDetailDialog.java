@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.lifecycle.Observer;
+
 import com.ph4n10m.budgetpro.R;
 import com.ph4n10m.budgetpro.entity.Collect;
 import com.ph4n10m.budgetpro.ui.collect.ApproximatelyCollectFragment;
@@ -33,8 +35,14 @@ public class CollectDetailDialog {
         tvName = view.findViewById(R.id.tvName);
         tvId.setText("" + collect.collect_id);
         tvName.setText(collect.name);
-        tvCategory.setText("" + collect.category_id);
-        tvMoney.setText(collect.money + "Đồng");
+//        tvCategory.setText(""+mViewModel.getName(Integer.valueOf(collect.category_id)));
+        mViewModel.getName(collect.category_id).observe(fragment, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                tvCategory.setText(s);
+            }
+        });
+        tvMoney.setText(collect.money + " Đồng");
         tvNote.setText(collect.note);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context)

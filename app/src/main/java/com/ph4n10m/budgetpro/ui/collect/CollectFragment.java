@@ -17,14 +17,14 @@ import com.ph4n10m.budgetpro.adapter.CollectViewPager2Adapter;
 
 
 public class CollectFragment extends Fragment {
-    private ViewPager2 mVp;
     public TabLayout mT1;
+    private ViewPager2 mVp;
 
     public CollectFragment() {
         // Required empty public constructor
     }
 
-    public static CollectFragment newInstance(String param1, String param2) {
+    public static CollectFragment newInstance() {
         CollectFragment fragment = new CollectFragment();
         return fragment;
     }
@@ -32,10 +32,8 @@ public class CollectFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         mVp = view.findViewById(R.id.viewPager2);
         mT1 = view.findViewById(R.id.tabLayout);
-
         CollectViewPager2Adapter apapter = new CollectViewPager2Adapter(getActivity());
         mVp.setAdapter(apapter);
 
@@ -43,10 +41,8 @@ public class CollectFragment extends Fragment {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                 if (position == 0) {
-                    tab.setIcon(R.drawable.ic_menu_camera);
-                    tab.setText("Khoản Thu");
+                    tab.setText("Thu Nhập");
                 } else {
-                    tab.setIcon(R.drawable.ic_menu_camera);
                     tab.setText("Nguồn Thu Nhập");
                 }
 
@@ -54,7 +50,6 @@ public class CollectFragment extends Fragment {
         }).attach();
     }
 
-    //
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

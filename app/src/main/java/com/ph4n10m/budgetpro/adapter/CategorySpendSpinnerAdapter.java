@@ -13,9 +13,10 @@ import com.ph4n10m.budgetpro.entity.CategorySpend;
 import java.util.List;
 
 public class CategorySpendSpinnerAdapter extends BaseAdapter {
-    private List<CategorySpend> mList;
     private final LayoutInflater mLayoutflater;
-    public CategorySpendSpinnerAdapter(Context context){
+    private List<CategorySpend> mList;
+
+    public CategorySpendSpinnerAdapter(Context context) {
         mLayoutflater = LayoutInflater.from(context);
     }
 
@@ -26,14 +27,14 @@ public class CategorySpendSpinnerAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if(mList==null)
+        if (mList == null)
             return 0;
         return mList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        if(mList == null)
+        if (mList == null)
             return null;
         return mList.get(position);
     }
@@ -46,22 +47,22 @@ public class CategorySpendSpinnerAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ApproximatelySpendViewHolder holder;
-        if(convertView == null)
-        {
-            convertView = mLayoutflater.inflate(R.layout.spinner_spend_item, null,false);
+        if (convertView == null) {
+            convertView = mLayoutflater.inflate(R.layout.spinner_spend_item, null, false);
             holder = new ApproximatelySpendViewHolder(convertView);
             convertView.setTag(holder);
-        }
-        else{
+        } else {
             holder = (ApproximatelySpendViewHolder) convertView.getTag();
         }
-        holder.tvMame.setText(mList.get(position).name);
-        return convertView ;
+        holder.tvName.setText(mList.get(position).name);
+        return convertView;
     }
-    public static class ApproximatelySpendViewHolder{
-        public TextView tvMame;
-        public ApproximatelySpendViewHolder(View view){
-            tvMame = view.findViewById(R.id.tvName);
+
+    public static class ApproximatelySpendViewHolder {
+        public TextView tvName;
+
+        public ApproximatelySpendViewHolder(View view) {
+            tvName = view.findViewById(R.id.tvName);
         }
     }
 }

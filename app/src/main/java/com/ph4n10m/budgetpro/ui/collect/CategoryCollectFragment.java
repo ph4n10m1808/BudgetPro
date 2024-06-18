@@ -82,9 +82,8 @@ public class CategoryCollectFragment extends Fragment {
                     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                         int position = viewHolder.getAdapterPosition();
                         CategoryCollect categoryCollect = mAdapter.getItem(position);
-
-                        Toast.makeText(getActivity(), "Loại thu đã được xóa", Toast.LENGTH_SHORT).show();
                         mViewModel.delete(categoryCollect);
+                        Toast.makeText(getActivity(), "Loại thu đã được xóa", Toast.LENGTH_SHORT).show();
                     }
                 }
         );

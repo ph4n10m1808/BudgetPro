@@ -12,16 +12,15 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ph4n10m.budgetpro.R;
-import com.ph4n10m.budgetpro.entity.Collect;
 import com.ph4n10m.budgetpro.entity.Spend;
 
 import java.util.List;
 
 public class SpendRecyclerviewAdapter extends RecyclerView.Adapter<SpendRecyclerviewAdapter.SpendViewHolder> {
-    private final LayoutInflater mLayoutInflater;
-    private List<Spend> mList;
     public static ItemClickListener itemEditClickListener;
     public static ItemClickListener itemViewClickListener;
+    private final LayoutInflater mLayoutInflater;
+    private List<Spend> mList;
 
     public SpendRecyclerviewAdapter(Context context) {
         mLayoutInflater = LayoutInflater.from(context);

@@ -8,10 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.ph4n10m.budgetpro.R;
-import com.ph4n10m.budgetpro.entity.CategoryCollect;
 import com.ph4n10m.budgetpro.entity.CategorySpend;
-import com.ph4n10m.budgetpro.ui.collect.CategoryCollectFragment;
-import com.ph4n10m.budgetpro.ui.collect.CategoryCollectViewModel;
 import com.ph4n10m.budgetpro.ui.spend.CategorySpendFragment;
 import com.ph4n10m.budgetpro.ui.spend.CategorySpendViewModel;
 

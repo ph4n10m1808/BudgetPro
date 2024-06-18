@@ -1,14 +1,14 @@
 package com.ph4n10m.budgetpro;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -17,6 +17,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.ph4n10m.budgetpro.databinding.ActivityMainBinding;
 import com.ph4n10m.budgetpro.dialog.CategoryCollectDialog;
@@ -34,19 +35,16 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-
+    private FloatingActionButton fab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        fab = findViewById(R.id.fab);
+        fab.setVisibility(View.GONE);
         setSupportActionBar(binding.appBarMain.toolbar);
-//        getSupportActionBar().setDisplayShowTitleEnabled(true);
         final MainActivity currentContext = this;
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,17 +54,14 @@ public class MainActivity extends AppCompatActivity {
                     CategoryCollectDialog dialog = new CategoryCollectDialog(currentContext,
                             (CategoryCollectFragment) fragment);
                     dialog.show();
-                } else if (fragment instanceof ApproximatelyCollectFragment)
-                {
+                } else if (fragment instanceof ApproximatelyCollectFragment) {
                     CollectDialog dialog = new CollectDialog(currentContext, (ApproximatelyCollectFragment) fragment);
                     dialog.show();
-                }
-                else if  (fragment instanceof CategorySpendFragment) {
+                } else if (fragment instanceof CategorySpendFragment) {
                     CategorySpendDialog dialog = new CategorySpendDialog(currentContext,
                             (CategorySpendFragment) fragment);
                     dialog.show();
-                } else if (fragment instanceof ApproximatelySpendFragment)
-                {
+                } else if (fragment instanceof ApproximatelySpendFragment) {
                     SpendDialog dialog = new SpendDialog(currentContext, (ApproximatelySpendFragment) fragment);
                     dialog.show();
                 }
@@ -84,23 +79,17 @@ public class MainActivity extends AppCompatActivity {
             public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
                 if (navDestination.getId() == R.id.nav_exit) {
                     finish();
+                } else if (navDestination.getId() == R.id.nav_home) {
+                    fab.setVisibility(View.GONE);
+                } else if (navDestination.getId() == R.id.nav_spend) {
+                    fab.setVisibility(View.VISIBLE);
+                } else if (navDestination.getId() == R.id.nav_collect) {
+                    fab.setVisibility(View.VISIBLE);
+                } else if (navDestination.getId() == R.id.nav_intro) {
+                    fab.setVisibility(View.GONE);
+                } else if (navDestination.getId() == R.id.nav_statistics) {
+                    fab.setVisibility(View.GONE);
                 }
-//                else if (navDestination.getId() == R.id.nav_collect){
-//                    String title = "Thu Nhập";
-//                    getSupportActionBar().setTitle(title);
-//                    }
-//                else if (navDestination.getId() == R.id.nav_spend){
-//                    String title = "Chi Tiêu";
-//                    getSupportActionBar().setTitle(title);
-//                }
-//                else if (navDestination.getId() == R.id.nav_statistics){
-//                    String title = "Thống kê";
-//                    getSupportActionBar().setTitle(title);
-//                }
-//                else if (navDestination.getId() == R.id.nav_intro){
-//                    String title = "Giới thiệu";
-//                    getSupportActionBar().setTitle(title);
-//                }
             }
         });
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
@@ -109,10 +98,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);    }
 
     @Override
     public boolean onSupportNavigateUp() {

@@ -3,6 +3,7 @@ package com.ph4n10m.budgetpro.dialog;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
@@ -28,12 +29,13 @@ public class CategoryCollectDialog {
         etId = view.findViewById(R.id.etId);
         etName = view.findViewById(R.id.etName);
         if (categoryCollect != null && categoryCollect.length > 0) {
-            etId.setText("" + categoryCollect[0].category_id);
+            etId.setText(String.valueOf(categoryCollect[0].category_id));
             etName.setText(categoryCollect[0].name);
             mEditMode = true;
         } else {
             mEditMode = false;
         }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
                 .setView(view)
                 .setNegativeButton("Đóng", new DialogInterface.OnClickListener() {
@@ -42,22 +44,43 @@ public class CategoryCollectDialog {
                         mDialog.dismiss();
                     }
                 })
-                .setPositiveButton("Lưu", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        CategoryCollect categoryCollect = new CategoryCollect();
-                        categoryCollect.name = etName.getText().toString();
-                        if (mEditMode) {
-                            categoryCollect.category_id = Integer.parseInt(etId.getText().toString());
-                            mViewModel.update(categoryCollect);
-                        } else {
-                            mViewModel.insert(categoryCollect);
-                            Toast.makeText(context, "Loại thu được lưu", Toast.LENGTH_SHORT).show();
-                        }
+                .setPositiveButton("Lưu", null);  // Set to null to override later
 
+        mDialog = builder.create();
+        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                mDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (validateInput()) {
+                            CategoryCollect categoryCollect = new CategoryCollect();
+                            categoryCollect.name = etName.getText().toString();
+                            if (mEditMode) {
+                                categoryCollect.category_id = Integer.parseInt(etId.getText().toString());
+                                mViewModel.update(categoryCollect);
+                                Toast.makeText(context, "Loại thu đã sửa thành công", Toast.LENGTH_SHORT).show();
+                            } else {
+                                mViewModel.insert(categoryCollect);
+                                Toast.makeText(context, "Loại thu được lưu", Toast.LENGTH_SHORT).show();
+                            }
+
+                            mDialog.dismiss();
+                        }
                     }
                 });
-        mDialog = builder.create();
+            }
+        });
+    }
+
+    private boolean validateInput() {
+        // Validate Name
+        if (TextUtils.isEmpty(etName.getText())) {
+            etName.setError("Tên không được để trống");
+            return false;
+        }
+
+        return true;
     }
 
     public void show() {

@@ -17,10 +17,10 @@ import com.ph4n10m.budgetpro.entity.CategoryCollect;
 import java.util.List;
 
 public class CategoryCollectRecyclerviewAdapter extends RecyclerView.Adapter<CategoryCollectRecyclerviewAdapter.CategoryCollectViewHolder> {
-    private final LayoutInflater mLayoutInflater;
-    private List<CategoryCollect> mList;
     public static ItemClickListener itemEditClickListener;
     public static ItemClickListener itemViewClickListener;
+    private final LayoutInflater mLayoutInflater;
+    private List<CategoryCollect> mList;
 
     public CategoryCollectRecyclerviewAdapter(Context context) {
         mLayoutInflater = LayoutInflater.from(context);

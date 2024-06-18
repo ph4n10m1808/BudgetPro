@@ -31,7 +31,15 @@ public class ApproximatelyCollectViewModel extends AndroidViewModel {
     public LiveData<List<Collect>> getAllCollect() {
         return mAllCollect;
     }
-    public LiveData<List<CategoryCollect>> getAllCategoryCollect() { return mAllCategory ;}
+
+    public LiveData<List<CategoryCollect>> getAllCategoryCollect() {
+        return mAllCategory;
+    }
+
+    public LiveData<String> getName(int id) {
+        return mCategoryCollectReponsitory.getName(id);
+    }
+
     public void insert(Collect collect) {
         mCollectRepository.insert(collect);
     }

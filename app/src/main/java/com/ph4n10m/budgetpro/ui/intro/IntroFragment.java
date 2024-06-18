@@ -1,48 +1,24 @@
 package com.ph4n10m.budgetpro.ui.intro;
 
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
 import com.ph4n10m.budgetpro.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link IntroFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class IntroFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     public IntroFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment IntroFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static IntroFragment newInstance(String param1, String param2) {
         IntroFragment fragment = new IntroFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,16 +26,23 @@ public class IntroFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_intro, container, false);
+        View view = inflater.inflate(R.layout.fragment_intro, container, false);
+        TextView textView = view.findViewById(R.id.textView7);
+
+        String contactInfo = "<b>Ứng dụng được xây dựng bằng Java và được viết bởi Võ Văn Bảo.</b><br><br>" +
+                "Nếu bạn có bất cứ thắc mắc nào, hãy liên hệ đến tôi qua mail: " +
+                "<a href='mailto:baovv.22ns@vku.udn.vn'>baovv.22ns@vku.udn.vn</a> hoặc thêm vào issues vào " +
+                "reponsive github: <a href='https://github.com/ph4n10m/budgetpro'>BudgetPro GitHub</a>.";
+
+        textView.setText(Html.fromHtml(contactInfo));
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+
+        return view;
     }
 }

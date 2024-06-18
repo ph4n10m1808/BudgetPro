@@ -7,8 +7,9 @@ import androidx.lifecycle.LiveData;
 
 import com.ph4n10m.budgetpro.dao.AppDatabase;
 import com.ph4n10m.budgetpro.dao.SpendDao;
-import com.ph4n10m.budgetpro.dao.SpendDao;
+import com.ph4n10m.budgetpro.entity.ChartSpend;
 import com.ph4n10m.budgetpro.entity.Spend;
+import com.ph4n10m.budgetpro.entity.StatisticsCategorySpend;
 
 import java.util.List;
 
@@ -20,6 +21,19 @@ public class SpendRepository {
         this.mSpendDao = AppDatabase.getDatabase(application).spendDao();
         mAllSpend = mSpendDao.findAll();
     }
+
+    public LiveData<Float> sumSpend() {
+        return mSpendDao.sumSpend();
+    }
+
+    public LiveData<List<StatisticsCategorySpend>> sumbyCategorySpend() {
+        return mSpendDao.sumByCategorySpend();
+    }
+
+    public LiveData<List<ChartSpend>> getChartSpend() {
+        return mSpendDao.getChartSpend();
+    }
+
     public LiveData<List<Spend>> getAllSpend() {
         return mAllSpend;
     }

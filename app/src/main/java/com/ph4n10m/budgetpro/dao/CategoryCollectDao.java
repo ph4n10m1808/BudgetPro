@@ -24,4 +24,7 @@ public interface CategoryCollectDao {
 
     @Delete
     void delete(CategoryCollect categoryCollect);
+
+    @Query("SELECT name FROM CategoryCollect WHERE category_id = :id")
+    LiveData<String> getName(int id);
 }

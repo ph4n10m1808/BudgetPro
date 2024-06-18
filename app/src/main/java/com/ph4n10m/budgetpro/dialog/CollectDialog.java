@@ -3,6 +3,7 @@ package com.ph4n10m.budgetpro.dialog;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Spinner;
@@ -30,7 +31,7 @@ public class CollectDialog {
     private final TextInputEditText etNote;
     private final Spinner spType;
 
-    private final CategoryCollectSpinnerAdapter mApadter;
+    private final CategoryCollectSpinnerAdapter mAdapter;
     private final boolean mEditMode;
 
     public CollectDialog(Context context, ApproximatelyCollectFragment fragment, Collect... Collect) {
@@ -42,24 +43,25 @@ public class CollectDialog {
         etAmount = view.findViewById(R.id.etAmount);
         etNote = view.findViewById(R.id.etNote);
         spType = view.findViewById(R.id.spType);
-        mApadter = new CategoryCollectSpinnerAdapter(fragment.getActivity());
+        mAdapter = new CategoryCollectSpinnerAdapter(fragment.getActivity());
         mViewModel.getAllCategoryCollect().observe(fragment.getActivity(), new Observer<List<CategoryCollect>>() {
             @Override
             public void onChanged(List<CategoryCollect> categoryCollects) {
-                mApadter.setList(categoryCollects);
+                mAdapter.setList(categoryCollects);
             }
         });
-        spType.setAdapter(mApadter);
+        spType.setAdapter(mAdapter);
 
         if (Collect != null && Collect.length > 0) {
-            etId.setText("" + Collect[0].collect_id);
+            etId.setText(String.valueOf(Collect[0].collect_id));
             etName.setText(Collect[0].name);
-            etAmount.setText(""+Collect[0].money);
+            etAmount.setText(String.valueOf(Collect[0].money));
             etNote.setText(Collect[0].note);
             mEditMode = true;
         } else {
             mEditMode = false;
         }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
                 .setView(view)
                 .setNegativeButton("Đóng", new DialogInterface.OnClickListener() {
@@ -68,26 +70,61 @@ public class CollectDialog {
                         mDialog.dismiss();
                     }
                 })
-                .setPositiveButton("Lưu", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Collect collect = new Collect();
-                        collect.name = etName.getText().toString();
-                        collect.money = Float.parseFloat(etAmount.getText().toString());
-                        collect.note = etNote.getText().toString();
-                        collect.category_id = ((CategoryCollect) mApadter.getItem(spType.getSelectedItemPosition())).category_id;
-                        if (mEditMode) {
-                            collect.collect_id = Integer.parseInt(etId.getText().toString());
-                            collect.money = Float.parseFloat(etAmount.getText().toString());
-                            mViewModel.update(collect);
-                        } else {
-                            mViewModel.insert(collect);
-                            Toast.makeText(context, "Khoản thu được lưu", Toast.LENGTH_SHORT).show();
-                        }
+                .setPositiveButton("Lưu", null);  // Set to null to override later
 
+        mDialog = builder.create();
+        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                mDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (validateInput()) {
+                            Collect collect = new Collect();
+                            collect.name = etName.getText().toString();
+                            collect.money = Float.parseFloat(etAmount.getText().toString());
+                            collect.note = etNote.getText().toString();
+                            collect.category_id = ((CategoryCollect) mAdapter.getItem(spType.getSelectedItemPosition())).category_id;
+
+                            if (mEditMode) {
+                                collect.collect_id = Integer.parseInt(etId.getText().toString());
+                                mViewModel.update(collect);
+                                Toast.makeText(context, "Khoản thu đã sửa", Toast.LENGTH_SHORT).show();
+                            } else {
+                                mViewModel.insert(collect);
+                                Toast.makeText(context, "Khoản thu được lưu", Toast.LENGTH_SHORT).show();
+                            }
+
+                            mDialog.dismiss();
+                        }
                     }
                 });
-        mDialog = builder.create();
+            }
+        });
+    }
+
+    private boolean validateInput() {
+        // Validate Name
+        if (TextUtils.isEmpty(etName.getText())) {
+            etName.setError("Tên không được để trống");
+            return false;
+        }
+
+        // Validate Amount
+        String amountText = etAmount.getText().toString();
+        if (TextUtils.isEmpty(amountText)) {
+            etAmount.setError("Số tiền không được để trống");
+            return false;
+        }
+
+        try {
+            Float.parseFloat(amountText);
+        } catch (NumberFormatException e) {
+            etAmount.setError("Số tiền không hợp lệ");
+            return false;
+        }
+
+        return true;
     }
 
     public void show() {

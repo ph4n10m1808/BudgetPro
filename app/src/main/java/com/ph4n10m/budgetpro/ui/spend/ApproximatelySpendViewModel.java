@@ -6,13 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.ph4n10m.budgetpro.entity.CategoryCollect;
 import com.ph4n10m.budgetpro.entity.CategorySpend;
-import com.ph4n10m.budgetpro.entity.Collect;
 import com.ph4n10m.budgetpro.entity.Spend;
-import com.ph4n10m.budgetpro.repository.CategoryCollectRepository;
 import com.ph4n10m.budgetpro.repository.CategorySpendRepository;
-import com.ph4n10m.budgetpro.repository.CollectRepository;
 import com.ph4n10m.budgetpro.repository.SpendRepository;
 
 import java.util.List;
@@ -35,7 +31,15 @@ public class ApproximatelySpendViewModel extends AndroidViewModel {
     public LiveData<List<Spend>> getAllSpend() {
         return mAllSpend;
     }
-    public LiveData<List<CategorySpend>> getAllCategorySpend() { return mAllCategory ;}
+
+    public LiveData<String> getName(int id) {
+        return mCategorySpendReponsitory.getName(id);
+    }
+
+    public LiveData<List<CategorySpend>> getAllCategorySpend() {
+        return mAllCategory;
+    }
+
     public void insert(Spend spend) {
         mSpendRepository.insert(spend);
     }
