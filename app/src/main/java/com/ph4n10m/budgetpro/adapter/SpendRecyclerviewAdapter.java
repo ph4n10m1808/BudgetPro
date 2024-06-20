@@ -1,5 +1,6 @@
 package com.ph4n10m.budgetpro.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +43,7 @@ public class SpendRecyclerviewAdapter extends RecyclerView.Adapter<SpendRecycler
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SpendViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SpendViewHolder holder, @SuppressLint("RecyclerView") int position) {
         if (mList != null) {
             holder.tvName.setText(mList.get(position).name);
             holder.tvAmount.setText(mList.get(position).money + " Đồng");

@@ -59,10 +59,10 @@ public class CategorySpendDialog {
                             if (mEditMode) {
                                 categorySpend.catrgory_spend_id = Integer.parseInt(etId.getText().toString());
                                 mViewModel.update(categorySpend);
-                                Toast.makeText(context, "Loại Chi Đã sửa", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Loại chi đã sửa thành công", Toast.LENGTH_SHORT).show();
                             } else {
                                 mViewModel.insert(categorySpend);
-                                Toast.makeText(context, "Loại chi được lưu", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Loại chi đã lưu", Toast.LENGTH_SHORT).show();
                             }
 
                             mDialog.dismiss();

@@ -35,7 +35,6 @@ public class SpendDetailDialog {
         tvName = view.findViewById(R.id.tvName);
         tvId.setText("" + spend.spend_id);
         tvName.setText(spend.name);
-//        tvCategory.setText("" + spend.category_spend_id);
         mViewModel.getName(spend.category_spend_id).observe(fragment, new Observer<String>() {
             @Override
             public void onChanged(String s) {

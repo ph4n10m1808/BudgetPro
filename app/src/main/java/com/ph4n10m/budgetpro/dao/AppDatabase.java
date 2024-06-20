@@ -77,13 +77,13 @@ public abstract class AppDatabase extends RoomDatabase {
             }
             Collect collect = new Collect();
             collect.name = "Thu tháng 1";
-            collect.money = 3000;
+            collect.money = 300000;
             collect.category_id = 1;
             collect.note = "1";
             collectDao.insert(collect);
             Spend spend = new Spend();
-            spend.name = "Thu tháng 1";
-            spend.money = 3000;
+            spend.name = "Chi tháng 1";
+            spend.money = 300000;
             spend.category_spend_id = 1;
             spend.note = "1";
             spendDao.insert(spend);

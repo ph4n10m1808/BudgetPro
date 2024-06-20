@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -41,6 +42,10 @@ public class CategorySpendFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        if (activity != null) {
+            activity.getSupportActionBar().setTitle("Các loại khoản chi");
+        }
         return inflater.inflate(R.layout.fragment_category_spend, container, false);
     }
 
@@ -83,7 +88,7 @@ public class CategorySpendFragment extends Fragment {
                         int position = viewHolder.getAdapterPosition();
                         CategorySpend categorySpend = mAdapter.getItem(position);
 
-                        Toast.makeText(getActivity(), "Loại chi đã được xóa", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Loại chi đã xóa", Toast.LENGTH_SHORT).show();
                         mViewModel.delete(categorySpend);
                     }
                 }

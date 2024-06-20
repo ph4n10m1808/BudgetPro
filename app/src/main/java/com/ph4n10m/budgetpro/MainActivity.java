@@ -1,6 +1,7 @@
 package com.ph4n10m.budgetpro;
 
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -77,19 +80,16 @@ public class MainActivity extends AppCompatActivity {
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
-                if (navDestination.getId() == R.id.nav_exit) {
-                    finish();
-                } else if (navDestination.getId() == R.id.nav_home) {
-                    fab.setVisibility(View.GONE);
-                } else if (navDestination.getId() == R.id.nav_spend) {
-                    fab.setVisibility(View.VISIBLE);
-                } else if (navDestination.getId() == R.id.nav_collect) {
-                    fab.setVisibility(View.VISIBLE);
-                } else if (navDestination.getId() == R.id.nav_intro) {
-                    fab.setVisibility(View.GONE);
-                } else if (navDestination.getId() == R.id.nav_statistics) {
-                    fab.setVisibility(View.GONE);
-                }
+                SparseArray<Integer> fabVisibilityMap = new SparseArray<>();
+                fabVisibilityMap.put(R.id.nav_exit, View.VISIBLE);
+                fabVisibilityMap.put(R.id.nav_home, View.GONE);
+                fabVisibilityMap.put(R.id.nav_spend, View.VISIBLE);
+                fabVisibilityMap.put(R.id.nav_collect, View.VISIBLE);
+                fabVisibilityMap.put(R.id.nav_intro, View.GONE);
+                fabVisibilityMap.put(R.id.nav_statistics, View.GONE);
+                int fabVisibility = fabVisibilityMap.get(navDestination.getId(), View.GONE);
+                fab.setVisibility(fabVisibility);
+
             }
         });
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);

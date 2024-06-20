@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -41,6 +42,10 @@ public class CategoryCollectFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        if (activity != null) {
+            activity.getSupportActionBar().setTitle("Nguồn thu nhập");
+        }
         return inflater.inflate(R.layout.fragment_category_collect, container, false);
     }
 
@@ -83,7 +88,7 @@ public class CategoryCollectFragment extends Fragment {
                         int position = viewHolder.getAdapterPosition();
                         CategoryCollect categoryCollect = mAdapter.getItem(position);
                         mViewModel.delete(categoryCollect);
-                        Toast.makeText(getActivity(), "Loại thu đã được xóa", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Nguồn thu đã xóa", Toast.LENGTH_SHORT).show();
                     }
                 }
         );
@@ -101,5 +106,6 @@ public class CategoryCollectFragment extends Fragment {
             }
         });
     }
+
 
 }

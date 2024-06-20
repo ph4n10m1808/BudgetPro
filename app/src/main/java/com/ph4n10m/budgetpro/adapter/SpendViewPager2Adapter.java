@@ -17,10 +17,10 @@ public class SpendViewPager2Adapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        Fragment fragment;
+        Fragment fragment = null;
         if (position == 0) {
             fragment = ApproximatelySpendFragment.newInstance();
-        } else {
+        } else if (position == 1) {
             fragment = CategorySpendFragment.newInstance();
         }
         return fragment;

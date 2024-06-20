@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -74,7 +75,7 @@ public class ApproximatelySpendFragment extends Fragment {
                     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                         int position = viewHolder.getAdapterPosition();
                         Spend spend = mAdapter.getItem(position);
-                        Toast.makeText(getActivity(), "Khoản thu đã được xóa", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Khoản chi đã xóa", Toast.LENGTH_SHORT).show();
                         mViewModel.delete(spend);
                     }
                 }
@@ -85,6 +86,10 @@ public class ApproximatelySpendFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        if (activity != null) {
+            activity.getSupportActionBar().setTitle("Khoản Chi");
+        }
         return inflater.inflate(R.layout.fragment_approximately_spend, container, false);
     }
 

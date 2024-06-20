@@ -21,7 +21,6 @@ public class CollectFragment extends Fragment {
     private ViewPager2 mVp;
 
     public CollectFragment() {
-        // Required empty public constructor
     }
 
     public static CollectFragment newInstance() {
@@ -41,8 +40,8 @@ public class CollectFragment extends Fragment {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                 if (position == 0) {
-                    tab.setText("Thu Nhập");
-                } else {
+                    tab.setText("Khoản Thu");
+                } else if (position == 1) {
                     tab.setText("Nguồn Thu Nhập");
                 }
 
@@ -59,7 +58,6 @@ public class CollectFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_collect, container, false);
     }
 }

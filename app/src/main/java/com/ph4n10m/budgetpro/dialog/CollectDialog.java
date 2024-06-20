@@ -92,7 +92,7 @@ public class CollectDialog {
                                 Toast.makeText(context, "Khoản thu đã sửa", Toast.LENGTH_SHORT).show();
                             } else {
                                 mViewModel.insert(collect);
-                                Toast.makeText(context, "Khoản thu được lưu", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Khoản thu đã lưu", Toast.LENGTH_SHORT).show();
                             }
 
                             mDialog.dismiss();
@@ -104,13 +104,11 @@ public class CollectDialog {
     }
 
     private boolean validateInput() {
-        // Validate Name
         if (TextUtils.isEmpty(etName.getText())) {
             etName.setError("Tên không được để trống");
             return false;
         }
 
-        // Validate Amount
         String amountText = etAmount.getText().toString();
         if (TextUtils.isEmpty(amountText)) {
             etAmount.setError("Số tiền không được để trống");

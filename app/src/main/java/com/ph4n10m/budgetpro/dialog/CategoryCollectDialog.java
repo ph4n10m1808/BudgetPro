@@ -59,10 +59,10 @@ public class CategoryCollectDialog {
                             if (mEditMode) {
                                 categoryCollect.category_id = Integer.parseInt(etId.getText().toString());
                                 mViewModel.update(categoryCollect);
-                                Toast.makeText(context, "Loại thu đã sửa thành công", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Nguồn thu nhập đã sửa thành công", Toast.LENGTH_SHORT).show();
                             } else {
                                 mViewModel.insert(categoryCollect);
-                                Toast.makeText(context, "Loại thu được lưu", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Nguồn thu nhập đã lưu", Toast.LENGTH_SHORT).show();
                             }
 
                             mDialog.dismiss();

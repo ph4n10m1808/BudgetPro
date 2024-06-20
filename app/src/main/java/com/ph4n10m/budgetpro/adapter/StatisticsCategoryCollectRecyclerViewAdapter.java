@@ -33,9 +33,6 @@ public class StatisticsCategoryCollectRecyclerViewAdapter extends RecyclerView.A
     @Override
     public void onBindViewHolder(@NonNull StatisticsCategoryViewHolder holder, int position) {
         if (mList != null) {
-//            StatisticsCategoryCollect currentItem = mList.get(position);
-//            holder.tvNameCategoryCollect.setText(currentItem.name());  // Set actual data
-//            holder.etTotalCategorySpend.setText(String.valueOf(currentItem.total()));  // Set actual data
             holder.tvNameCategoryCollect.setText(mList.get(position).name);
             holder.etTotalCategoryCollect.setText(mList.get(position).total + " Đồng");
         } else {
