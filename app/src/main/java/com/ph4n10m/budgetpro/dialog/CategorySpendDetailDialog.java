@@ -25,7 +25,7 @@ public class CategorySpendDetailDialog {
         View view = mLayoutInflater.inflate(R.layout.dialog_detail_category_spend, null);
         tvId = view.findViewById(R.id.tvId);
         tvName = view.findViewById(R.id.tvName);
-        tvId.setText("" + categorySpend.catrgory_spend_id);
+        tvId.setText("" + categorySpend.category_spend_id);
         tvName.setText(categorySpend.name);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context)

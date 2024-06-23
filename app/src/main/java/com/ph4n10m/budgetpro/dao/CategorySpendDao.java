@@ -25,6 +25,6 @@ public interface CategorySpendDao {
     @Delete
     void delete(CategorySpend categorySpend);
 
-    @Query("SELECT name FROM CategorySpend WHERE catrgory_spend_id = :id")
+    @Query("SELECT name FROM CategorySpend WHERE category_spend_id = :id")
     LiveData<String> getName(int id);
 }

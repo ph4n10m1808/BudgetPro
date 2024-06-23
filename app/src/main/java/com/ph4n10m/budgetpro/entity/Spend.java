@@ -2,9 +2,18 @@ package com.ph4n10m.budgetpro.entity;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(
+        foreignKeys = @ForeignKey(
+                entity = CategorySpend.class,
+                parentColumns = "category_spend_id",
+                childColumns = "category_spend_id",
+                onDelete = ForeignKey.CASCADE,
+                onUpdate = ForeignKey.CASCADE
+        )
+)
 public class Spend {
     @PrimaryKey(autoGenerate = true)
     public int spend_id;

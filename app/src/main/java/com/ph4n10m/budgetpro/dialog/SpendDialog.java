@@ -84,7 +84,7 @@ public class SpendDialog {
                             spend.name = etName.getText().toString();
                             spend.money = Float.parseFloat(etAmount.getText().toString());
                             spend.note = etNote.getText().toString();
-                            spend.category_spend_id = ((CategorySpend) mAdapter.getItem(spType.getSelectedItemPosition())).catrgory_spend_id;
+                            spend.category_spend_id = ((CategorySpend) mAdapter.getItem(spType.getSelectedItemPosition())).category_spend_id;
 
                             if (mEditMode) {
                                 spend.spend_id = Integer.parseInt(etId.getText().toString());

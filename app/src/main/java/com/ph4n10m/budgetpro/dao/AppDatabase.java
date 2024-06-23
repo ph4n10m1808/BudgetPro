@@ -15,13 +15,14 @@ import com.ph4n10m.budgetpro.entity.CategorySpend;
 import com.ph4n10m.budgetpro.entity.Collect;
 import com.ph4n10m.budgetpro.entity.Spend;
 
-@Database(entities = {CategoryCollect.class, Collect.class, CategorySpend.class, Spend.class}, version = 5)
+@Database(entities = {CategoryCollect.class, Collect.class, CategorySpend.class, Spend.class}, version = 7)
 public abstract class AppDatabase extends RoomDatabase {
-    public static AppDatabase INSTANCE;
+    private static volatile AppDatabase INSTANCE;
+
     private static final RoomDatabase.Callback callback = new Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onOpen(db);
+            super.onCreate(db);
             new PopulateData(INSTANCE).execute();
         }
     };
@@ -29,12 +30,13 @@ public abstract class AppDatabase extends RoomDatabase {
     public static AppDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (AppDatabase.class) {
-                INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                AppDatabase.class,
-                                "personal_db")
-                        .fallbackToDestructiveMigration()
-                        .addCallback(callback)
-                        .build();
+                if (INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                                    AppDatabase.class, "personal_db.db")
+                            .fallbackToDestructiveMigration()
+                            .addCallback(callback)
+                            .build();
+                }
             }
         }
         return INSTANCE;
@@ -48,13 +50,13 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract SpendDao spendDao();
 
-    public static class PopulateData extends AsyncTask<Void, Void, Void> {
+    private static class PopulateData extends AsyncTask<Void, Void, Void> {
         private final CategoryCollectDao categoryCollectDao;
         private final CollectDao collectDao;
         private final CategorySpendDao categorySpendDao;
         private final SpendDao spendDao;
 
-        public PopulateData(AppDatabase db) {
+        PopulateData(AppDatabase db) {
             categoryCollectDao = db.categoryCollectDao();
             collectDao = db.collectDao();
             categorySpendDao = db.categorySpendDao();
@@ -93,5 +95,4 @@ public abstract class AppDatabase extends RoomDatabase {
             return null;
         }
     }
-
 }

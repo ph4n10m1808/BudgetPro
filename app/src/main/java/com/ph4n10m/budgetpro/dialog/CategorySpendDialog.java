@@ -29,7 +29,7 @@ public class CategorySpendDialog {
         etId = view.findViewById(R.id.etId);
         etName = view.findViewById(R.id.etName);
         if (categorySpends != null && categorySpends.length > 0) {
-            etId.setText(String.valueOf(categorySpends[0].catrgory_spend_id));
+            etId.setText(String.valueOf(categorySpends[0].category_spend_id));
             etName.setText(categorySpends[0].name);
             mEditMode = true;
         } else {
@@ -57,7 +57,7 @@ public class CategorySpendDialog {
                             CategorySpend categorySpend = new CategorySpend();
                             categorySpend.name = etName.getText().toString();
                             if (mEditMode) {
-                                categorySpend.catrgory_spend_id = Integer.parseInt(etId.getText().toString());
+                                categorySpend.category_spend_id = Integer.parseInt(etId.getText().toString());
                                 mViewModel.update(categorySpend);
                                 Toast.makeText(context, "Loại chi đã sửa thành công", Toast.LENGTH_SHORT).show();
                             } else {

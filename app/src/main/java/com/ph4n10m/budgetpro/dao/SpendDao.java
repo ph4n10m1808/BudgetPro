@@ -30,7 +30,7 @@ public interface SpendDao {
     @Query("SELECT sum(money) FROM Spend")
     LiveData<Float> sumSpend();
 
-    @Query("SELECT a.category_spend_id,b.name,sum(a.money) as total FROM Spend a INNER JOIN CategorySpend b on a.category_spend_id=b.catrgory_spend_id " + "GROUP BY a.category_spend_id,b.name")
+    @Query("SELECT a.category_spend_id,b.name,sum(a.money) as total FROM Spend a INNER JOIN CategorySpend b on a.category_spend_id=b.category_spend_id " + "GROUP BY a.category_spend_id,b.name")
     LiveData<List<StatisticsCategorySpend>> sumByCategorySpend();
 
     @Query("SELECT name, money FROM Spend")
